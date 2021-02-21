@@ -3,11 +3,11 @@
   <title>Hexo</title>
   
   
-  <link href="http://example.com/atom.xml" rel="self"/>
+  <link href="http://ethanyi9.gitee.io/ethanyi_blog/atom.xml" rel="self"/>
   
-  <link href="http://example.com/"/>
-  <updated>2021-02-21T18:44:50.278Z</updated>
-  <id>http://example.com/</id>
+  <link href="http://ethanyi9.gitee.io/ethanyi_blog/"/>
+  <updated>2021-02-21T18:37:46.869Z</updated>
+  <id>http://ethanyi9.gitee.io/ethanyi_blog/</id>
   
   <author>
     <name>John Doe</name>
@@ -17,22 +17,9 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>”你好.md“</title>
-    <link href="http://example.com/2021/02/22/%E2%80%9D%E4%BD%A0%E5%A5%BD-md%E2%80%9C/"/>
-    <id>http://example.com/2021/02/22/%E2%80%9D%E4%BD%A0%E5%A5%BD-md%E2%80%9C/</id>
-    <published>2021-02-21T18:44:50.000Z</published>
-    <updated>2021-02-21T18:44:50.278Z</updated>
-    
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
     <title></title>
-    <link href="http://example.com/2021/02/22/%E4%BD%A0%E5%A5%BD/"/>
-    <id>http://example.com/2021/02/22/%E4%BD%A0%E5%A5%BD/</id>
+    <link href="http://ethanyi9.gitee.io/ethanyi_blog/2021/02/22/%E4%BD%A0%E5%A5%BD/"/>
+    <id>http://ethanyi9.gitee.io/ethanyi_blog/2021/02/22/%E4%BD%A0%E5%A5%BD/</id>
     <published>2021-02-21T18:37:46.798Z</published>
     <updated>2021-02-21T18:37:46.869Z</updated>
     
@@ -52,8 +39,8 @@
   
   <entry>
     <title>Hello World</title>
-    <link href="http://example.com/2021/02/22/hello-world/"/>
-    <id>http://example.com/2021/02/22/hello-world/</id>
+    <link href="http://ethanyi9.gitee.io/ethanyi_blog/2021/02/22/hello-world/"/>
+    <id>http://ethanyi9.gitee.io/ethanyi_blog/2021/02/22/hello-world/</id>
     <published>2021-02-21T17:23:36.810Z</published>
     <updated>2021-02-21T17:23:36.810Z</updated>
     
