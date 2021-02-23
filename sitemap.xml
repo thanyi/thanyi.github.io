@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://ethanyi9.gitee.io/ethanyi_blog/categories/index.html</loc>
+    
+    <lastmod>2021-02-22</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://ethanyi9.gitee.io/ethanyi_blog/tags/index.html</loc>
+    
+    <lastmod>2021-02-22</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://ethanyi9.gitee.io/ethanyi_blog/2021/02/22/%E4%BD%A0%E5%A5%BD/</loc>
     
     <lastmod>2021-02-21</lastmod>
@@ -18,7 +32,7 @@
 
   <url>
     <loc>http://ethanyi9.gitee.io/ethanyi_blog</loc>
-    <lastmod>2021-02-21</lastmod>
+    <lastmod>2021-02-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>

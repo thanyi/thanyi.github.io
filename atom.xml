@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Hexo</title>
+  <title>ethanyi&#39;s blog</title>
   
   
   <link href="http://ethanyi9.gitee.io/ethanyi_blog/atom.xml" rel="self"/>
@@ -10,7 +10,7 @@
   <id>http://ethanyi9.gitee.io/ethanyi_blog/</id>
   
   <author>
-    <name>John Doe</name>
+    <name>ethanyi</name>
     
   </author>
   
