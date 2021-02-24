@@ -1,0 +1,31 @@
+/* 文章页背景
+.layout_post>#post {
+    /* 以下代表透明度为0.2 可以自行修改*/
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* 所有页面背景 */
+#aside_content .card-widget, #recent-posts>.recent-post-item, .layout_page>div:first-child:not(.recent-posts), .layout_post>#page, .layout_post>#post, .read-mode .layout_post>#post{
+    /* 以下代表透明度为0.2 */
+    background: rgba(255,255,255,0.2);
+} */
+
+
+#web_bg{
+    background-image: url("https://ae01.alicdn.com/kf/H18a4b998752a4ae68b8e85d432a5aef0l.png"), linear-gradient(60deg, rgba(255, 165, 150, 0.5) 5%, rgba(0, 228, 255, 0.35)), url("https://upimage.alexhchu.com/2020/10/19/34446d0d37dde.jpg");
+}
+
+  
+  /* 页脚透明 */
+
+#footer {
+    background: transparent !important;
+}
+/* 首页中间打字效果上方 */
+#page-header #site_title {
+    color: #80bdab;
+}
+/* 顶部导航栏 */
+#nav a {
+    color: #f9f2f4;
+}
