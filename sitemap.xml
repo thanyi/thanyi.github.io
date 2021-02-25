@@ -46,7 +46,7 @@
 
   
   <url>
-    <loc>http://ethanyi9.gitee.io/ethanyi_blog/tags/hexo/</loc>
+    <loc>http://ethanyi9.gitee.io/ethanyi_blog/tags/git/</loc>
     <lastmod>2021-02-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -60,7 +60,7 @@
   </url>
   
   <url>
-    <loc>http://ethanyi9.gitee.io/ethanyi_blog/tags/git/</loc>
+    <loc>http://ethanyi9.gitee.io/ethanyi_blog/tags/hexo/</loc>
     <lastmod>2021-02-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -76,14 +76,14 @@
   </url>
   
   <url>
-    <loc>http://ethanyi9.gitee.io/ethanyi_blog/categories/%E6%95%99%E7%A8%8B/hexo/</loc>
+    <loc>http://ethanyi9.gitee.io/ethanyi_blog/categories/%E6%95%99%E7%A8%8B/git/</loc>
     <lastmod>2021-02-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://ethanyi9.gitee.io/ethanyi_blog/categories/%E6%95%99%E7%A8%8B/git/</loc>
+    <loc>http://ethanyi9.gitee.io/ethanyi_blog/categories/%E6%95%99%E7%A8%8B/hexo/</loc>
     <lastmod>2021-02-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
