@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://ethanyi9.gitee.io/ethanyi_blog/categories/index.html</loc>
+    
+    <lastmod>2021-02-26</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://ethanyi9.gitee.io/ethanyi_blog/tags/index.html</loc>
+    
+    <lastmod>2021-02-26</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://ethanyi9.gitee.io/ethanyi_blog/link/index.html</loc>
+    
+    <lastmod>2021-02-26</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://ethanyi9.gitee.io/ethanyi_blog/2021/02/25/%E4%BB%A3%E7%A0%81%E6%8F%90%E4%BA%A4/</loc>
     
     <lastmod>2021-02-25</lastmod>
@@ -15,31 +36,10 @@
     
   </url>
   
-  <url>
-    <loc>http://ethanyi9.gitee.io/ethanyi_blog/link/index.html</loc>
-    
-    <lastmod>2021-02-23</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://ethanyi9.gitee.io/ethanyi_blog/categories/index.html</loc>
-    
-    <lastmod>2021-02-22</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://ethanyi9.gitee.io/ethanyi_blog/tags/index.html</loc>
-    
-    <lastmod>2021-02-22</lastmod>
-    
-  </url>
-  
 
   <url>
     <loc>http://ethanyi9.gitee.io/ethanyi_blog</loc>
-    <lastmod>2021-02-25</lastmod>
+    <lastmod>2021-03-04</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -47,21 +47,21 @@
   
   <url>
     <loc>http://ethanyi9.gitee.io/ethanyi_blog/tags/git/</loc>
-    <lastmod>2021-02-25</lastmod>
+    <lastmod>2021-03-04</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://ethanyi9.gitee.io/ethanyi_blog/tags/%E6%8A%80%E6%9C%AF/</loc>
-    <lastmod>2021-02-25</lastmod>
+    <lastmod>2021-03-04</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://ethanyi9.gitee.io/ethanyi_blog/tags/hexo/</loc>
-    <lastmod>2021-02-25</lastmod>
+    <lastmod>2021-03-04</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
@@ -70,21 +70,21 @@
   
   <url>
     <loc>http://ethanyi9.gitee.io/ethanyi_blog/categories/%E6%95%99%E7%A8%8B/</loc>
-    <lastmod>2021-02-25</lastmod>
+    <lastmod>2021-03-04</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://ethanyi9.gitee.io/ethanyi_blog/categories/%E6%95%99%E7%A8%8B/git/</loc>
-    <lastmod>2021-02-25</lastmod>
+    <lastmod>2021-03-04</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://ethanyi9.gitee.io/ethanyi_blog/categories/%E6%95%99%E7%A8%8B/hexo/</loc>
-    <lastmod>2021-02-25</lastmod>
+    <lastmod>2021-03-04</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
