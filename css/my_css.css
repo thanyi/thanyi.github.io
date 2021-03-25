@@ -21,6 +21,11 @@
 #footer {
     background: transparent !important;
 }
+
+.framework-info{
+    display: none;
+}
+
 /* 首页中间打字效果上方 */
 #page-header #site_title {
     color: #80bdab;
