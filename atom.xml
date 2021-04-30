@@ -6,7 +6,7 @@
   <link href="http://ethanyi9.gitee.io/ethanyi9/atom.xml" rel="self"/>
   
   <link href="http://ethanyi9.gitee.io/ethanyi9/"/>
-  <updated>2021-04-12T12:30:38.512Z</updated>
+  <updated>2021-04-30T15:48:07.677Z</updated>
   <id>http://ethanyi9.gitee.io/ethanyi9/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>关于win系统中powershell的美化</title>
+    <link href="http://ethanyi9.gitee.io/ethanyi9/2021/04/30/%E5%85%B3%E4%BA%8Epowershell/"/>
+    <id>http://ethanyi9.gitee.io/ethanyi9/2021/04/30/%E5%85%B3%E4%BA%8Epowershell/</id>
+    <published>2021-04-29T16:00:00.000Z</published>
+    <updated>2021-04-30T15:48:07.677Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>  在花猪的带领下，学会了关于我电脑的powershell的美化，太香了</p><h1 id="特别感谢博客"><a href="#特别感谢博客" class="headerlink" title="特别感谢博客"></a>特别感谢博客</h1><p><a href="https://akilar.top/posts/8a76eb87/">https://akilar.top/posts/8a76eb87/</a></p><h1 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h1><p>我觉得上文的那个文章里面写的很好了我就不写了</p><h1 id="有些bug的更改"><a href="#有些bug的更改" class="headerlink" title="有些bug的更改"></a>有些bug的更改</h1><p>你在按照教程</p><p>在powershell上使用命令打开.ps1文件的时候，输入</p><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Import-Module</span> posh<span class="literal">-git</span></span><br><span class="line"><span class="built_in">Import-Module</span> <span class="built_in">oh</span><span class="literal">-my</span><span class="literal">-posh</span></span><br><span class="line"><span class="built_in">Set-Theme</span> Agnoster</span><br></pre></td></tr></table></figure><p>命令”Set-Theme Agnoster”是旧版本的命令（这个版本是oh-my-posh的版本），对于新版本，也就是V3版本的oh-my-posh来说</p><p>命令应该是</p><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Import-Module</span> posh<span class="literal">-git</span></span><br><span class="line"><span class="built_in">Import-Module</span> <span class="built_in">oh</span><span class="literal">-my</span><span class="literal">-posh</span></span><br><span class="line"><span class="built_in">Set-PoshPrompt</span> <span class="literal">-Theme</span> agnoster</span><br></pre></td></tr></table></figure><p>然后问题就解决了</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;  在花猪的带领下，学会了关于我电脑的powershell的美化，太香了&lt;/p&gt;
+&lt;h1 id=&quot;特别感谢博客&quot;&gt;&lt;a href=&quot;#特别感</summary>
+      
+    
+    
+    
+    <category term="教程" scheme="http://ethanyi9.gitee.io/ethanyi9/categories/%E6%95%99%E7%A8%8B/"/>
+    
+    <category term="powershell" scheme="http://ethanyi9.gitee.io/ethanyi9/categories/%E6%95%99%E7%A8%8B/powershell/"/>
+    
+    
+    <category term="技术" scheme="http://ethanyi9.gitee.io/ethanyi9/tags/%E6%8A%80%E6%9C%AF/"/>
+    
+    <category term="安装" scheme="http://ethanyi9.gitee.io/ethanyi9/tags/%E5%AE%89%E8%A3%85/"/>
+    
+  </entry>
   
   <entry>
     <title>(pip)关于代理安装问题</title>
