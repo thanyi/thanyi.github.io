@@ -1,0 +1,453 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>关于git的基本使用 | Ethanyi's Blog</title><meta name="keywords" content="git,技术"><meta name="author" content="ethanyi"><meta name="copyright" content="ethanyi"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="flask这个是关于我们要做的项目的学习 我们用了flask框架 虚拟环境虚拟环境的配置保证了到时候项目交接的时候 让别的组员不用也在pip上面 配置很多东西 直接就放在这个项目包里面了 配置文件在flask的文件项目里面可以自己新建一个settings.py 里面就是普通的关于配置的书写 12ENV &#x3D;&quot;development&quot;DEBUG &#x3D; True">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于git的基本使用">
+<meta property="og:url" content="http://ethanyi9.gitee.io/ethanyi9/2021/02/25/flask/index.html">
+<meta property="og:site_name" content="Ethanyi&#39;s Blog">
+<meta property="og:description" content="flask这个是关于我们要做的项目的学习 我们用了flask框架 虚拟环境虚拟环境的配置保证了到时候项目交接的时候 让别的组员不用也在pip上面 配置很多东西 直接就放在这个项目包里面了 配置文件在flask的文件项目里面可以自己新建一个settings.py 里面就是普通的关于配置的书写 12ENV &#x3D;&quot;development&quot;DEBUG &#x3D; True">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/thanyi/image/20210605203159.png">
+<meta property="article:published_time" content="2021-02-24T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-06-05T12:38:32.989Z">
+<meta property="article:author" content="ethanyi">
+<meta property="article:tag" content="git">
+<meta property="article:tag" content="技术">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/thanyi/image/20210605203159.png"><link rel="shortcut icon" href="/ethanyi9/img/avatar.jpeg"><link rel="canonical" href="http://ethanyi9.gitee.io/ethanyi9/2021/02/25/flask/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/ethanyi9/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/ethanyi9/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-06-05 20:38:32'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><link rel="stylesheet" href="/css/my_css.css"><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/ethanyi9/atom.xml" title="Ethanyi's Blog" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/ethanyi9/img/avatar.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/ethanyi9/archives/"><div class="headline">文章</div><div class="length-num">9</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/ethanyi9/tags/"><div class="headline">标签</div><div class="length-num">8</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/ethanyi9/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/ethanyi9/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/ethanyi9/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/ethanyi9/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/ethanyi9/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/ethanyi9/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-list"></i><span> 生活</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/ethanyi9/artitalk/"><i class="fa-fw fa fa-comments"></i><span> 说说</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/ethanyi9/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/thanyi/image/20210605203159.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/ethanyi9/">Ethanyi's Blog</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/ethanyi9/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/ethanyi9/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/ethanyi9/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/ethanyi9/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/ethanyi9/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-list"></i><span> 生活</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/ethanyi9/artitalk/"><i class="fa-fw fa fa-comments"></i><span> 说说</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/ethanyi9/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">关于git的基本使用</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-02-24T16:00:00.000Z" title="发表于 2021-02-25 00:00:00">2021-02-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-06-05T12:38:32.989Z" title="更新于 2021-06-05 20:38:32">2021-06-05</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/ethanyi9/categories/%E6%95%99%E7%A8%8B/">教程</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/ethanyi9/categories/%E6%95%99%E7%A8%8B/git/">git</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>13分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="flask"><a href="#flask" class="headerlink" title="flask"></a>flask</h1><p>这个是关于我们要做的项目的学习</p>
+<p>我们用了flask框架</p>
+<h2 id="虚拟环境"><a href="#虚拟环境" class="headerlink" title="虚拟环境"></a>虚拟环境</h2><p>虚拟环境的配置保证了到时候项目交接的时候</p>
+<p>让别的组员不用也在pip上面 配置很多东西</p>
+<p>直接就放在这个项目包里面了</p>
+<h2 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h2><p>在flask的文件项目里面可以自己新建一个settings.py</p>
+<p>里面就是普通的关于配置的书写</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ENV &#x3D;&quot;development&quot;</span><br><span class="line">DEBUG &#x3D; True</span><br></pre></td></tr></table></figure>
+
+<p>然后在app.py中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">app.config.from_object(settings)</span><br></pre></td></tr></table></figure>
+
+<p>就可以开始实施配置文件了</p>
+<h2 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h2><p>在pycharm中弄了flask项目以后，有</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/&#x27;</span></span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello_world</span>():</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;Hello World!&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>这个是一个装饰器，也就是可以翻译成</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">def</span> <span class="title">hello_world</span>():</span>    </span><br><span class="line"> 	<span class="keyword">return</span> <span class="string">&#x27;Hello World!&#x27;</span></span><br><span class="line"> 	</span><br><span class="line"> app.add_url_rule(<span class="string">&#x27;/&#x27;</span>,view_func=index)</span><br></pre></td></tr></table></figure>
+
+<p>将路由和这个视图函数绑定在一起</p>
+<p>注：app是一个Flask类弄出的对象，是整个flask项目的中心</p>
+<p>具有各种和项目相关的方法和变量</p>
+<h3 id="路由的变量规则"><a href="#路由的变量规则" class="headerlink" title="路由的变量规则"></a>路由的变量规则</h3><p>路由可以在里面加入一些变量，放入在路由里面的</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/index/&lt;str:key&gt;&#x27;</span></span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello_world</span>(<span class="params">key</span>):</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;Hello World!&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>key是一个变量，也可以不叫key，然后这个路由里面一旦涉及一个&lt;..&gt;变量，所对应的函数就要多一个参数,默认是字符串类型  </p>
+<p>这些类型就是那些数据类型</p>
+<p>还有一个path和uuid类型，了解就行</p>
+<h3 id="路由中url重定向行为"><a href="#路由中url重定向行为" class="headerlink" title="路由中url重定向行为"></a>路由中url重定向行为</h3><p>在路由中，如果我的定义是最后有个”/“</p>
+<p>比如</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/index/&#x27;</span></span>)</span></span><br></pre></td></tr></table></figure>
+
+<p>它会具有重定向。也就是说如果我在浏览器里面是写的”/index/“</p>
+<p>它也会重定向到”/index”这里，顺便一说此时的返回状态码是30x(也就是说302、308)这些，和重定向有关的状态码</p>
+<h3 id="路由的返回值"><a href="#路由的返回值" class="headerlink" title="路由的返回值"></a>路由的返回值</h3><p> return的那些字符串都是进入了Respone中，Response（“返回的字符串”）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/&#x27;</span></span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello_world</span>():</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;Hello World!&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>这个return  ‘Hello World!’</p>
+<p>等价于 return Response (‘Hello World!’)</p>
+<p>这个Respone中的参数就是web中response中的一些参数</p>
+<p><img src="https://cdn.jsdelivr.net/gh/thanyi/image/20210605203610.png"></p>
+<p>return 的返回值可以是元组，在这个情况下后面的跟着的可以是响应码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/&#x27;</span></span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello_world</span>():</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;Hello World!&#x27;</span>,<span class="number">404</span></span><br></pre></td></tr></table></figure>
+
+<p>那这个页面就会直接变成404的样子，也就是在响应报文中有个404了</p>
+<h3 id="关于make-response"><a href="#关于make-response" class="headerlink" title="关于make_response"></a>关于make_response</h3><p>这个话题我还不知道放在哪里我就直接放在这个路由版块了</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">response = make_response(<span class="string">&quot;这是一个文本&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>这个创建了一个response对象，在视图函数里面就可以直接返回这个对象，这就是一个响应对象 </p>
+<p>还可以通过</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">response.headers[<span class="string">&quot;aaa&quot;</span>]=<span class="string">&quot;fff&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>来在响应头里加一个参数</p>
+<h3 id="response和request对象"><a href="#response和request对象" class="headerlink" title="response和request对象"></a>response和request对象</h3><p>上面那个应该是就response对象的用法但我不想改顺序了</p>
+<p>那这里就讲request</p>
+<p>直接在flask里面导入进来就好了（原来import里真的可以直接导对象啊）</p>
+<p>request可以直接调用其中的变量</p>
+<h2 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h2><p>render_template(“xxx.html”)</p>
+<p>这个方法是flask自带的，一直就有</p>
+<p>里面的xxx.html是指在templates文件夹里面的名字</p>
+<p><img src="https://cdn.jsdelivr.net/gh/thanyi/image/20210605203630.png"></p>
+<h3 id="对于HTML里面有from表单的情况"><a href="#对于HTML里面有from表单的情况" class="headerlink" title="对于HTML里面有from表单的情况"></a>对于HTML里面有from表单的情况</h3><p>这个form表单里面的action属性</p>
+<p>表示了提交以后要进入的路径</p>
+ <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">from</span> <span class="attr">action</span>=<span class="string">&quot;/xxx&quot;</span> <span class="attr">method</span>=<span class="string">&quot;get&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span> = <span class="string">&quot;username&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">from</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这个name属性很重要，是你用来传参的地方</p>
+<p>你可以通过request.args.get(‘username’)</p>
+<p>直接吧你输入的值拿到 </p>
+<p>而对于post方法</p>
+<p>你首先要这样</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/&#x27;</span>,methods=[<span class="string">&#x27;GET&#x27;</span>,<span class="string">&#x27;POST&#x27;</span>]</span>)</span></span><br></pre></td></tr></table></figure>
+
+<p>然后使用request.form.get(‘username’)</p>
+<p>这样才可以</p>
+<h3 id="补充：json"><a href="#补充：json" class="headerlink" title="补充：json"></a>补充：json</h3><p>这是个关于json用法的补充</p>
+<p>json我之前一直没怎么学好</p>
+<p>json是一个字符串格式，应该是属于字符串那个范围</p>
+<p>在python中，列表变成json格式字符串：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">json_str = json.dumps(列表变量名)</span><br></pre></td></tr></table></figure>
+
+<h3 id="重定向"><a href="#重定向" class="headerlink" title="重定向"></a>重定向</h3><p>重定向有个状态码302</p>
+<p>302表示就是重定向，表示浏览器接收到了302，发现自己应该转一个地址，就直接转过去了，此时浏览器还要在发一个请求给服务器，表示我再要一个给之前重定向的那个url，请给我这个url的响应</p>
+<p>在flask中，这个重定向是直接有一个redirect函数可以来使用，应该也是在flask里面自己就有的，都不需要换什么</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> redirect(<span class="string">&quot;要换的地址&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://cdn.jsdelivr.net/gh/thanyi/image/20210605203700.png">        而redirect常常和url_for搭配起来使用</p>
+<p>url_for 感觉也就是给一个很长的路径弄一个比较好记的小名</p>
+<p>它也是一个flask自带的函数，可以直接用</p>
+<p>用法是首先</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/&#x27;</span>,methods=[<span class="string">&#x27;GET&#x27;</span>,<span class="string">&#x27;POST&#x27;</span>],endpoint=<span class="string">&#x27;小名&#x27;</span></span>)</span></span><br></pre></td></tr></table></figure>
+
+<p>然后在你想用的地方</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">url_for(<span class="string">&#x27;小名&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>就好了</p>
+<h3 id="模板的参数投递"><a href="#模板的参数投递" class="headerlink" title="模板的参数投递"></a>模板的参数投递</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">render_template(<span class="string">&quot;你的HTML&quot;</span>，变量名= flask里面弄的变量名)</span><br></pre></td></tr></table></figure>
+
+<p>在html里面就是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;变量名&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个变量如果在flask里面没有就是空白字符串</p>
+<p>这个我学过了所以不多讲了</p>
+<p><strong>这里面的语法对于python的所有语法都适用</strong></p>
+<p>顺便一说这些都是先在render_template里面，也就是jinjia2这个模板引擎里面进行了渲染，然后才开始return到浏览器的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">对列表：</span><br><span class="line">&#123;&#123;list.0&#125;&#125;或者&#123;&#123;list[0]&#125;&#125;</span><br><span class="line">字典：</span><br><span class="line">&#123;&#123;dic.item&#125;&#125;</span><br><span class="line">对象：</span><br><span class="line">&#123;&#123;对象.属性&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h4 id="语句块"><a href="#语句块" class="headerlink" title="语句块"></a>语句块</h4><p>循环的语句块：</p>
+
+
+<p>if的语句块：</p>
+
+
+<h4 id="过滤器"><a href="#过滤器" class="headerlink" title="过滤器"></a>过滤器</h4><p>过滤器就是一个函数，不过是在模板里定义的自带的函数，</p>
+<p>用法是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;变量名 | 过滤器（参数）&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>参数可以有也可以没有</p>
+<p>常用的过滤器：</p>
+<p>safe、capitalize、upper、reverse、format、truncate</p>
+<p>有字典的也有list的各种方法，基本上和python里面都差不多</p>
+<p>在语句块里面也差不多，语句块里面可以直接使用方法    </p>
+<h4 id="自定义过滤器"><a href="#自定义过滤器" class="headerlink" title="自定义过滤器"></a>自定义过滤器</h4><p>方法一：</p>
+<p>app.add_template_filter(在app.py里面的函数名，“你想要使用时候用的名字”)</p>
+<p>方法二：</p>
+<p>使用装饰器，在这个定义的函数前面写一个</p>
+<p>@app.template_filter(“你想要它叫的名字”)</p>
+<h3 id="模板复用"><a href="#模板复用" class="headerlink" title="模板复用"></a>模板复用</h3><h4 id="模块继承"><a href="#模块继承" class="headerlink" title="模块继承"></a>模块继承</h4><p>要用一个语句块</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% block 名字 %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% endblock %&#125;</span><br></pre></td></tr></table></figure>
+
+<p>就是说这几个都是这个HTML里面可以改的地方</p>
+<p>然后开始继承</p>
+<p>在子模板里面</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% extends ’index.html&#39; %&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个index.html是你想要继承的那个html</p>
+<p>然后你现在改的也就只有父本里面的那些block的地方</p>
+<p>然后这个时候要注意是写的那个自己的名字</p>
+<p>也就是说在子模板里面是只有</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% block 名字 %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% endblock %&#125;</span><br></pre></td></tr></table></figure>
+
+<p>的形式的</p>
+<h4 id="包含"><a href="#包含" class="headerlink" title="包含"></a>包含</h4><p>这是一个include</p>
+<p>格式是</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% include &#x27;文件夹/xxx.html&#x27;%&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个方法适用于在A,B,C中有一些共同的部分，但其他页面没有这个部分</p>
+<p>所以A,B,C里面直接include就好了</p>
+<h4 id="宏"><a href="#宏" class="headerlink" title="宏"></a>宏</h4><p>宏有点像是python里面的函数，它的格式是这样的：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% macro 函数名(变量)%&#125;</span><br><span class="line">	。。。</span><br><span class="line">&#123;% endmacro %&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个我感觉和include也有那么一点像</p>
+<p>也就是说我可以把这个macro也就是这个像函数一样的东西放在一个HTML文件里面，然后在其他文件里面引用它，格式为：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;% import &#x27;文件路径名&#x27; as 别名 %&#125;</span><br><span class="line">&#123;&#123; 别名.方法(参数) &#125;&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="引用static文件夹中的文件"><a href="#引用static文件夹中的文件" class="headerlink" title="引用static文件夹中的文件"></a>引用static文件夹中的文件</h3><p>这涉及到要使用url_for</p>
+<p>我们可以知道之前说url_for是为了方便写各种各样的很长的路由，但是url_for还有其他用法</p>
+<p>比如说在要引入css文件的时候，我们使用url_for</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;&#123;&#123;url_for(&#x27;static&#x27;,filename = &#x27;css/style.css&#x27;)&#125;&#125;&quot;</span></span></span><br></pre></td></tr></table></figure>
+
+<p>这个是在flask里面的一个默认规定，它表示直接引用了static文件夹里面的css文件夹中的style.css</p>
+<p>它将static作为了url_for里面的一个特殊条件，这个条件后面必须要有filename, 将’css/style.css’变成非关键参数，使得关键参数只有‘static’这一个</p>
+<h2 id="蓝图"><a href="#蓝图" class="headerlink" title="蓝图"></a>蓝图</h2><h3 id="视图"><a href="#视图" class="headerlink" title="视图"></a>视图</h3><p>认识蓝图之前，我们首先要理清楚视图是个什么</p>
+<p>视图就是在flask里面那些之前和路由联系在一起的函数，它们把路由连接起来返回数据传给浏览器</p>
+<h3 id="蓝图是什么"><a href="#蓝图是什么" class="headerlink" title="蓝图是什么"></a>蓝图是什么</h3><p>蓝图是指将一些视图按照一些分类规矩分成的一个块</p>
+<p>也就是说原本乱七八糟的视图函数们，在这里变成了稍微可以归类的一个个版块，里面有着一个个视图</p>
+<p>蓝图对象连接着一些在一个主题里面的路由</p>
+<p>通过蓝图对象注册在app对像来使得app对象中可以识别这些路由</p>
+<h4 id="蓝图中的Flask-name"><a href="#蓝图中的Flask-name" class="headerlink" title="蓝图中的Flask(_ name _)"></a>蓝图中的Flask(_ <em>name</em> _)</h4><p>这个类的构造方法是把templates和static的路径设定好的，所以如果你是在做项目，需要把这个路径改一改</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">蓝图对象名称 = Flask(__name__,template_folder=<span class="string">&#x27;要改的路径&#x27;</span>,static_folder = <span class="string">&#x27;要改的路径&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="项目中的关于表的删除操作"><a href="#项目中的关于表的删除操作" class="headerlink" title="项目中的关于表的删除操作"></a>项目中的关于表的删除操作</h3><p>通过js代码可以进行删除</p>
+<p>js中location对象 location.href=’替换的一个路由’，还可以把参数用get方法的形式放在里面</p>
+<p>这就进入了一个新的视图函数，这样就可以在那个视图函数里面进行表的删减</p>
+<h2 id="flask-script"><a href="#flask-script" class="headerlink" title="flask-script"></a>flask-script</h2><p>这个是用来和数据库做关系的一个模块</p>
+<p>居然只能和flask1.1.2作一起使用，看来这个也是一件很老的东西了，唉，将就用吧</p>
+<p>命令行中运行</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python app.py runserver</span><br></pre></td></tr></table></figure>
+
+<p> 这个命令行部分还可以自定义命令</p>
+<p>在一个函数上面加上装饰器</p>
+<p>@manager.command</p>
+<p>就好了</p>
+<h2 id="ORM"><a href="#ORM" class="headerlink" title="ORM"></a>ORM</h2><p>所谓ORM，指的是将数据库和类联系起来的一种映射关系</p>
+<p>这个关系是</p>
+<p>类&lt;———&gt;字段名</p>
+<p>对象&lt;———-&gt;一条数据</p>
+<p>将这个映射关系的使用，这就是ORM的作用</p>
+<h3 id="在flask中与之相关的库"><a href="#在flask中与之相关的库" class="headerlink" title="在flask中与之相关的库"></a>在flask中与之相关的库</h3><h4 id="SQLALchemy"><a href="#SQLALchemy" class="headerlink" title="SQLALchemy"></a>SQLALchemy</h4><p>这个是一个关于实现我们所谓ORM关系的库，是基础</p>
+<h4 id="flask-sqlalchemy"><a href="#flask-sqlalchemy" class="headerlink" title="flask-sqlalchemy"></a>flask-sqlalchemy</h4><p>这是基于SQLAlchemy的一个库，由于SQLAlchemy的复杂性，flask中将其做了一步简化，使其比较方便</p>
+<h4 id="flask-migrate"><a href="#flask-migrate" class="headerlink" title="flask-migrate"></a>flask-migrate</h4><p>用于实现ORM映射的命令</p>
+<h3 id="配置文件-1"><a href="#配置文件-1" class="headerlink" title="配置文件"></a>配置文件</h3><p>中间有一个和数据库进行连接的配置：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SQLALCHEMY_DATABASE_URI=<span class="string">&#x27;mysql+pymysql://user:password@hostip:port/db_name&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>这里面的都是概念名字，用到了自己记得换</p>
+<h3 id="app和ORM"><a href="#app和ORM" class="headerlink" title="app和ORM"></a>app和ORM</h3><h4 id="app和SQLAlchemy关联"><a href="#app和SQLAlchemy关联" class="headerlink" title="app和SQLAlchemy关联"></a>app和SQLAlchemy关联</h4><p>这两个是需要关联的东西，app对象和db=SQLAlchemy()对象进行关联：</p>
+<p>db是在ext文件夹中实现</p>
+<p>然后在apps的_ <em>init</em> _.py中</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">create_app</span>():</span></span><br><span class="line">    app = Flask(__name__,template_folder=<span class="string">&#x27;../templates&#x27;</span>,static_folder=<span class="string">&#x27;../static&#x27;</span>)</span><br><span class="line">	</span><br><span class="line">    app.config.from_object(settings.DevelopmentConfig)</span><br><span class="line">    db.init_app(app) <span class="comment">#进行的绑定</span></span><br><span class="line">  </span><br><span class="line">    app.register_blueprint(user_bp)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>注意其中的顺序问题，一定要是先配置了文件，然后在对db进行和app的连接</p>
+<h4 id="app和flask-migrate"><a href="#app和flask-migrate" class="headerlink" title="app和flask-migrate"></a>app和flask-migrate</h4><p>migrate对象是和app和db对象都产生关联了</p>
+<p>（flask-migrate要是2.5.3版本才能弄MigrateCommand太离谱了）</p>
+<p>在app.py中</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">migrate = Migrate(app=app,db=db)</span><br><span class="line">manager.add_command(<span class="string">&#x27;db&#x27;</span>,MigrateCommand)</span><br></pre></td></tr></table></figure>
+
+<h2 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h2><p>model模型，也就是类，在model.py中</p>
+<p>也就是是和表相对应的那个类，大概的格式是</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span>(<span class="params">db.Model</span>):</span></span><br><span class="line"> 	<span class="built_in">id</span> = db.column(db.Integer, primary_key=<span class="literal">True</span>,autoincrement = <span class="literal">True</span>)</span><br><span class="line">    username = db.column(db.String(<span class="number">15</span>), nullable = <span class="literal">False</span>)</span><br><span class="line">    password = db.column(db.String(<span class="number">12</span>), nullabe = <span class="literal">True</span>)</span><br><span class="line">    phone = db.column(db.String(<span class="number">11</span>), unique = <span class="literal">True</span>)</span><br><span class="line">    rdatetime = db.column(db.DateTime, default = datetime.now)</span><br></pre></td></tr></table></figure>
+
+<p>使用命令：</p>
+<ol>
+<li>记得创建了模型以后要导入模型</li>
+<li>在终端使用命令db init</li>
+</ol>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python app.py db init</span><br></pre></td></tr></table></figure>
+
+<p>会生成一个migration文件夹</p>
+<p>再弄一个命令 </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python app.py db migrate</span><br></pre></td></tr></table></figure>
+
+<p>要记得先把数据库打开啊</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python app.py db upgrade</span><br></pre></td></tr></table></figure>
+
+<p>顺便一说这样确定了之后如果只是对这个表的增删改查好像就已经可以不用打开数据库了</p>
+<h4 id="db对象的一些方法"><a href="#db对象的一些方法" class="headerlink" title="db对象的一些方法"></a>db对象的一些方法</h4><p>db.session.add(模型)  添加一个模型进db对象的缓存里面（感觉是这个意思）</p>
+<p>db.session.commit()   提交这个缓存</p>
+<h4 id="关于对数据库的操作"><a href="#关于对数据库的操作" class="headerlink" title="关于对数据库的操作"></a>关于对数据库的操作</h4><p>对数据库的操作在flask里面就是对model类的对象和db对象的一些操作</p>
+<p>我们数据库的创建是用了上面的upgrade命令</p>
+<p>插入和查询操作就是直接</p>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">db.session.add()</span><br><span class="line">db.session.commit() 	<span class="comment">#添加行数据和提交</span></span><br><span class="line"></span><br><span class="line">User.query.<span class="built_in">all</span>()  <span class="comment">#查找这个表的所有</span></span><br><span class="line">User.query.filer_by(表中的参数名 = 函数中的参数名) <span class="comment">#查找你想要的行，返回的是一个列表，可以说这个列表里面都是一个个数据对象</span></span><br><span class="line">User.query.get(<span class="number">1</span>) <span class="comment">#按照主键来查询 返回一个用户对象</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">User.qurey.<span class="built_in">filter</span>(User.username == <span class="string">&quot;想要查的变量&quot;</span>).<span class="built_in">all</span>() 	<span class="comment">#返回的是一个列表，列表里面是对象</span></span><br><span class="line">User.query.<span class="built_in">filter</span>(User.username.startswith(<span class="string">&#x27;z&#x27;</span>)).<span class="built_in">all</span>()</span><br><span class="line">User.query.<span class="built_in">filter</span>(User.username.endswith(<span class="string">&#x27;z&#x27;</span>)).<span class="built_in">all</span>()</span><br><span class="line">User.query.<span class="built_in">filter</span>(User.username.contains(<span class="string">&#x27;z&#x27;</span>)).<span class="built_in">all</span>()</span><br><span class="line">User.query.<span class="built_in">filter</span>(User.username.like(<span class="string">&#x27;z%&#x27;</span>)).<span class="built_in">all</span>()</span><br><span class="line">User.query.<span class="built_in">filter</span>(or_(User.username.startwith(<span class="string">&#x27;z&#x27;</span>),User.username.startwith(<span class="string">&#x27;z&#x27;</span>))).<span class="built_in">all</span>()</span><br><span class="line">User.query.<span class="built_in">filter</span>(and_(User.username.like(<span class="string">&#x27;z%&#x27;</span>),User.<span class="built_in">id</span>.__gt__(<span class="string">&#x27;2&#x27;</span>))).<span class="built_in">all</span>() <span class="comment"># id&gt;2 and username like &#x27;z% &#x27; 这个也可以直接用&gt; 和 &lt; 号的</span></span><br></pre></td></tr></table></figure>
+
+<p>or_ 和and_ 都是要import的</p>
+<p>排序：order_by</p>
+<pre><code>user_list = User.query.filter(User.username.contains(&#39;z&#39;)).order_by(-User.rdatetime).all()  # 先筛选再排序
+user_list = User.query.order_by(-User.id).all()  对所有的进行排序
+注意：order_by(参数)：
+1。 直接是字符串： &#39;字段名&#39;  但是不能倒序
+2。 填字段名： 模型.字段    order_by(-模型.字段)  倒序
+</code></pre>
+<p>限制： limit</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">limit的使用 + offset</span><br><span class="line">user_list &#x3D; User.query.limit(2).all()   默认获取前两条</span><br><span class="line">user_list &#x3D; User.query.offset(2).limit(2).all()   跳过2条记录再获取两条记录</span><br></pre></td></tr></table></figure>
+
+<h2 id="关于直接在前端对后端数据库的操作"><a href="#关于直接在前端对后端数据库的操作" class="headerlink" title="关于直接在前端对后端数据库的操作"></a>关于直接在前端对后端数据库的操作</h2><p>通过对标签的修改加上js的辅助，用JavaScript来使其进入另一个路由，在这个理由里面定义视图函数，用这个函数的返回值来表示响应</p>
+<h2 id="表与表之间的关联"><a href="#表与表之间的关联" class="headerlink" title="表与表之间的关联"></a>表与表之间的关联</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Article</span>(<span class="params">db.Model</span>):</span></span><br><span class="line">    ...</span><br><span class="line">	uer_id =  db.Column(db.Integer,db.ForeignKey(<span class="string">&#x27;user.id&#x27;</span>),nullable = Flase)</span><br><span class="line">    </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span>(<span class="params">db.Model</span>):</span></span><br><span class="line">    ...</span><br><span class="line">    articles = db.relationship(<span class="string">&#x27;Article&#x27;</span>,backref=<span class="string">&#x27;user&#x27;</span>)</span><br><span class="line">    </span><br></pre></td></tr></table></figure>
+
+<p>上面这个是一对多关系的时候需要用。表示一个user对应多个article</p>
+<p>如果是多对多的关系的话，要注意：要弄一个第三方的表，这个表来方便将两张多对多关系的表实现连接</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">ethanyi</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://ethanyi9.gitee.io/ethanyi9/2021/02/25/flask/">http://ethanyi9.gitee.io/ethanyi9/2021/02/25/flask/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://ethanyi9.gitee.io/ethanyi9" target="_blank">Ethanyi's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/ethanyi9/tags/git/">git</a><a class="post-meta__tags" href="/ethanyi9/tags/%E6%8A%80%E6%9C%AF/">技术</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/thanyi/image/20210605203159.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button button--animated"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/ethanyi9/img/wechat.png" target="_blank"><img class="post-qr-code-img" src="/ethanyi9/img/wechat.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/ethanyi9/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="/ethanyi9/img/alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/ethanyi9/2021/03/05/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/"><img class="prev-cover" src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2059555168,1020765367&amp;fm=26&amp;gp=0.jpg" onerror="onerror=null;src='/ethanyi9/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">正则表达式的基本使用</div></div></a></div><div class="next-post pull-right"><a href="/ethanyi9/2021/02/25/%E4%BB%A3%E7%A0%81%E6%8F%90%E4%BA%A4/"><img class="next-cover" src="https://cdn.jsdelivr.net/gh/thanyi/image/git.jfif" onerror="onerror=null;src='/ethanyi9/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">关于git的基本使用</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/ethanyi9/2021/02/25/代码提交/" title="关于git的基本使用"><img class="cover" src="https://cdn.jsdelivr.net/gh/thanyi/image/git.jfif" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-02-25</div><div class="title">关于git的基本使用</div></div></a></div><div><a href="/ethanyi9/2021/03/22/关于npm/" title="关于npm的一些安装问题"><img class="cover" src="https://cdn.jsdelivr.net/gh/thanyi/image/20210323010635.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-03-22</div><div class="title">关于npm的一些安装问题</div></div></a></div><div><a href="/ethanyi9/2021/03/18/抓包工具安装/" title="关于安装burp suite抓包工具"><img class="cover" src="https://cdn.jsdelivr.net/gh/thanyi/image/20210319002751.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-03-18</div><div class="title">关于安装burp suite抓包工具</div></div></a></div><div><a href="/ethanyi9/2021/03/05/正则表达式/" title="正则表达式的基本使用"><img class="cover" src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2059555168,1020765367&fm=26&gp=0.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-03-05</div><div class="title">正则表达式的基本使用</div></div></a></div><div><a href="/ethanyi9/2021/04/12/关于pip/" title="(pip)关于代理安装问题"><img class="cover" src="https://cdn.jsdelivr.net/gh/thanyi/image/20210412202516.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-04-12</div><div class="title">(pip)关于代理安装问题</div></div></a></div><div><a href="/ethanyi9/2021/04/30/关于powershell/" title="关于win系统中powershell的美化"><img class="cover" src="https://cdn.jsdelivr.net/gh/thanyi/image/20210430234652.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-04-30</div><div class="title">关于win系统中powershell的美化</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#flask"><span class="toc-number">1.</span> <span class="toc-text">flask</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83"><span class="toc-number">1.1.</span> <span class="toc-text">虚拟环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">1.2.</span> <span class="toc-text">配置文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B7%AF%E7%94%B1"><span class="toc-number">1.3.</span> <span class="toc-text">路由</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B7%AF%E7%94%B1%E7%9A%84%E5%8F%98%E9%87%8F%E8%A7%84%E5%88%99"><span class="toc-number">1.3.1.</span> <span class="toc-text">路由的变量规则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B7%AF%E7%94%B1%E4%B8%ADurl%E9%87%8D%E5%AE%9A%E5%90%91%E8%A1%8C%E4%B8%BA"><span class="toc-number">1.3.2.</span> <span class="toc-text">路由中url重定向行为</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B7%AF%E7%94%B1%E7%9A%84%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="toc-number">1.3.3.</span> <span class="toc-text">路由的返回值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E4%BA%8Emake-response"><span class="toc-number">1.3.4.</span> <span class="toc-text">关于make_response</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#response%E5%92%8Crequest%E5%AF%B9%E8%B1%A1"><span class="toc-number">1.3.5.</span> <span class="toc-text">response和request对象</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E6%9D%BF"><span class="toc-number">1.4.</span> <span class="toc-text">模板</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E4%BA%8EHTML%E9%87%8C%E9%9D%A2%E6%9C%89from%E8%A1%A8%E5%8D%95%E7%9A%84%E6%83%85%E5%86%B5"><span class="toc-number">1.4.1.</span> <span class="toc-text">对于HTML里面有from表单的情况</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A5%E5%85%85%EF%BC%9Ajson"><span class="toc-number">1.4.2.</span> <span class="toc-text">补充：json</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E5%AE%9A%E5%90%91"><span class="toc-number">1.4.3.</span> <span class="toc-text">重定向</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E6%9D%BF%E7%9A%84%E5%8F%82%E6%95%B0%E6%8A%95%E9%80%92"><span class="toc-number">1.4.4.</span> <span class="toc-text">模板的参数投递</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%AD%E5%8F%A5%E5%9D%97"><span class="toc-number">1.4.4.1.</span> <span class="toc-text">语句块</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%87%E6%BB%A4%E5%99%A8"><span class="toc-number">1.4.4.2.</span> <span class="toc-text">过滤器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E8%BF%87%E6%BB%A4%E5%99%A8"><span class="toc-number">1.4.4.3.</span> <span class="toc-text">自定义过滤器</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E6%9D%BF%E5%A4%8D%E7%94%A8"><span class="toc-number">1.4.5.</span> <span class="toc-text">模板复用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A8%A1%E5%9D%97%E7%BB%A7%E6%89%BF"><span class="toc-number">1.4.5.1.</span> <span class="toc-text">模块继承</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8C%85%E5%90%AB"><span class="toc-number">1.4.5.2.</span> <span class="toc-text">包含</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%8F"><span class="toc-number">1.4.5.3.</span> <span class="toc-text">宏</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%95%E7%94%A8static%E6%96%87%E4%BB%B6%E5%A4%B9%E4%B8%AD%E7%9A%84%E6%96%87%E4%BB%B6"><span class="toc-number">1.4.6.</span> <span class="toc-text">引用static文件夹中的文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%93%9D%E5%9B%BE"><span class="toc-number">1.5.</span> <span class="toc-text">蓝图</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%86%E5%9B%BE"><span class="toc-number">1.5.1.</span> <span class="toc-text">视图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%93%9D%E5%9B%BE%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">1.5.2.</span> <span class="toc-text">蓝图是什么</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%93%9D%E5%9B%BE%E4%B8%AD%E7%9A%84Flask-name"><span class="toc-number">1.5.2.1.</span> <span class="toc-text">蓝图中的Flask(_ name _)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E4%B8%AD%E7%9A%84%E5%85%B3%E4%BA%8E%E8%A1%A8%E7%9A%84%E5%88%A0%E9%99%A4%E6%93%8D%E4%BD%9C"><span class="toc-number">1.5.3.</span> <span class="toc-text">项目中的关于表的删除操作</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#flask-script"><span class="toc-number">1.6.</span> <span class="toc-text">flask-script</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ORM"><span class="toc-number">1.7.</span> <span class="toc-text">ORM</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8flask%E4%B8%AD%E4%B8%8E%E4%B9%8B%E7%9B%B8%E5%85%B3%E7%9A%84%E5%BA%93"><span class="toc-number">1.7.1.</span> <span class="toc-text">在flask中与之相关的库</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#SQLALchemy"><span class="toc-number">1.7.1.1.</span> <span class="toc-text">SQLALchemy</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#flask-sqlalchemy"><span class="toc-number">1.7.1.2.</span> <span class="toc-text">flask-sqlalchemy</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#flask-migrate"><span class="toc-number">1.7.1.3.</span> <span class="toc-text">flask-migrate</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6-1"><span class="toc-number">1.7.2.</span> <span class="toc-text">配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#app%E5%92%8CORM"><span class="toc-number">1.7.3.</span> <span class="toc-text">app和ORM</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#app%E5%92%8CSQLAlchemy%E5%85%B3%E8%81%94"><span class="toc-number">1.7.3.1.</span> <span class="toc-text">app和SQLAlchemy关联</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#app%E5%92%8Cflask-migrate"><span class="toc-number">1.7.3.2.</span> <span class="toc-text">app和flask-migrate</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.8.</span> <span class="toc-text">模型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#db%E5%AF%B9%E8%B1%A1%E7%9A%84%E4%B8%80%E4%BA%9B%E6%96%B9%E6%B3%95"><span class="toc-number">1.8.0.1.</span> <span class="toc-text">db对象的一些方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E5%AF%B9%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E6%93%8D%E4%BD%9C"><span class="toc-number">1.8.0.2.</span> <span class="toc-text">关于对数据库的操作</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E7%9B%B4%E6%8E%A5%E5%9C%A8%E5%89%8D%E7%AB%AF%E5%AF%B9%E5%90%8E%E7%AB%AF%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E6%93%8D%E4%BD%9C"><span class="toc-number">1.9.</span> <span class="toc-text">关于直接在前端对后端数据库的操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A1%A8%E4%B8%8E%E8%A1%A8%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E8%81%94"><span class="toc-number">1.10.</span> <span class="toc-text">表与表之间的关联</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background-image: url('https://cdn.jsdelivr.net/gh/thanyi/image/20210605203159.png')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By ethanyi</div><div class="framework-info"><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly"><img src="https://cdn-1.nesxc.com/img/shields/Frame-Hexo-blue.svg" data-ll-status="loading"/></a><a target="_blank" rel="noopener" href="https://butterfly.js.org"> <img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&amp;logo=bitdefender" data-ll-status="loading"/></a></div><div class="footer_custom_text">博客小白，多多关照</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/ethanyi9/js/utils.js"></script><script src="/ethanyi9/js/main.js"></script><div class="js-pjax"><script>(()=>{
+  const $countDom = document.getElementById('twikoo-count')
+  const init = () => {
+    let initData = {
+      el: '#twikoo-wrap',
+      envId: 'ethanyi9-5ggn6apd7d4e7804',
+      region: 'ap-shanghai'
+    }
+
+    if (false) {
+      const otherData = false
+      initData = Object.assign(initData, otherData)
+    }
+    
+    twikoo.init(initData)
+  }
+
+  const getCount = () => {
+    twikoo.getCommentsCount({
+      envId: 'ethanyi9-5ggn6apd7d4e7804',
+      region: 'ap-shanghai',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      $countDom.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const loadTwikoo = (bool = false) => {
+    if (typeof twikoo === 'object') {
+      init()
+      bool && $countDom && setTimeout(getCount,0)
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo@1.3.0/dist/twikoo.all.min.js').then(()=> {
+        init()
+        bool && $countDom && setTimeout(getCount,0)
+      })
+    }
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo(true)
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
