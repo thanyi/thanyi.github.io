@@ -6,7 +6,7 @@
   <link href="http://ethanyi9.gitee.io/ethanyi9/atom.xml" rel="self"/>
   
   <link href="http://ethanyi9.gitee.io/ethanyi9/"/>
-  <updated>2021-06-05T12:41:00.975Z</updated>
+  <updated>2021-07-09T04:12:22.407Z</updated>
   <id>http://ethanyi9.gitee.io/ethanyi9/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>关于vim</title>
+    <link href="http://ethanyi9.gitee.io/ethanyi9/2021/07/09/%E5%85%B3%E4%BA%8Evim/"/>
+    <id>http://ethanyi9.gitee.io/ethanyi9/2021/07/09/%E5%85%B3%E4%BA%8Evim/</id>
+    <published>2021-07-09T04:07:31.000Z</published>
+    <updated>2021-07-09T04:12:22.407Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="这个是之前找到的关于vim的简单和进阶操作"><a href="#这个是之前找到的关于vim的简单和进阶操作" class="headerlink" title="这个是之前找到的关于vim的简单和进阶操作"></a>这个是之前找到的关于vim的简单和进阶操作</h2><p><a href="https://www.cnblogs.com/chengjiawei/p/9339951.html">https://www.cnblogs.com/chengjiawei/p/9339951.html</a></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;这个是之前找到的关于vim的简单和进阶操作&quot;&gt;&lt;a href=&quot;#这个是之前找到的关于vim的简单和进阶操作&quot; class=&quot;headerlink&quot; title=&quot;这个是之前找到的关于vim的简单和进阶操作&quot;&gt;&lt;/a&gt;这个是之前找到的关于vim的简单和进阶操作&lt;/</summary>
+      
+    
+    
+    
+    <category term="vim" scheme="http://ethanyi9.gitee.io/ethanyi9/categories/vim/"/>
+    
+    
+    <category term="技术" scheme="http://ethanyi9.gitee.io/ethanyi9/tags/%E6%8A%80%E6%9C%AF/"/>
+    
+    <category term="教程" scheme="http://ethanyi9.gitee.io/ethanyi9/tags/%E6%95%99%E7%A8%8B/"/>
+    
+  </entry>
   
   <entry>
     <title>flask框架的使用教程</title>
