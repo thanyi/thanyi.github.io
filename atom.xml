@@ -6,7 +6,7 @@
   <link href="http://ethanyi9.gitee.io/ethanyi9/atom.xml" rel="self"/>
   
   <link href="http://ethanyi9.gitee.io/ethanyi9/"/>
-  <updated>2021-09-08T13:53:54.578Z</updated>
+  <updated>2021-09-09T16:18:48.810Z</updated>
   <id>http://ethanyi9.gitee.io/ethanyi9/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>016关于python中beautifulsoup库的用法(超简单)</title>
+    <link href="http://ethanyi9.gitee.io/ethanyi9/2021/09/09/016%E5%85%B3%E4%BA%8Epython%E4%B8%ADbeautiful%E5%BA%93%E7%9A%84%E7%94%A8%E6%B3%95/"/>
+    <id>http://ethanyi9.gitee.io/ethanyi9/2021/09/09/016%E5%85%B3%E4%BA%8Epython%E4%B8%ADbeautiful%E5%BA%93%E7%9A%84%E7%94%A8%E6%B3%95/</id>
+    <published>2021-09-09T07:19:01.000Z</published>
+    <updated>2021-09-09T16:18:48.810Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>之前有节实验课研究了爬虫，我深刻地感觉到了xpath就不适合玩爬虫（个人见解），于是我开始试着重新复习beautifulsoup库了</p><h1 id="beautifulsoup库的使用"><a href="#beautifulsoup库的使用" class="headerlink" title="beautifulsoup库的使用"></a>beautifulsoup库的使用</h1><h2 id="安装和引用"><a href="#安装和引用" class="headerlink" title="安装和引用"></a>安装和引用</h2><p>安装直接pip安装就好了</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install bs4</span><br></pre></td></tr></table></figure><p>引用</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br></pre></td></tr></table></figure><h2 id="创建对象"><a href="#创建对象" class="headerlink" title="创建对象"></a>创建对象</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">soup = BeautifulSoup(res_text,<span class="string">&quot;html.parser&quot;</span>,from_encoding=<span class="string">&quot;utf-8&quot;</span>)</span><br></pre></td></tr></table></figure><p>html.parser 是一个算是用于解释html文档的东西</p><h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>首先我需要一个html文档，一般来说是用了requests模块以后得来的content</p><p>然后使用的语法</p><h4 id="查找标签"><a href="#查找标签" class="headerlink" title="查找标签"></a>查找标签</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">test1 = soup.findAll(<span class="string">&#x27;a&#x27;</span>) </span><br><span class="line"><span class="comment">#这个是指我要这个文档里面所有的a标签，包括了&lt;a&gt;一起，有一个像是list的返回，类型叫做ResultSet</span></span><br><span class="line">test2 = soup.findAll(<span class="string">&#x27;a&#x27;</span>,class_=<span class="string">&#x27;xxx&#x27;</span>)</span><br><span class="line"><span class="comment">#在上面的基础上，我要的是所有class是&#x27;xxx&#x27;的标签</span></span><br><span class="line">test3 = soup.findAll(<span class="string">&#x27;a&#x27;</span>,class_=<span class="string">&#x27;xxx&#x27;</span>,text=<span class="string">&#x27;story&#x27;</span>)</span><br><span class="line"><span class="comment">#标签里面的文本筛选</span></span><br></pre></td></tr></table></figure><p>我们还可以和著名的re库，也就是正则表达式一起用</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">test4 = soup.findAll(<span class="string">&#x27;a&#x27;</span>,class_=<span class="string">&#x27;xxx&#x27;</span>,text=re.<span class="built_in">compile</span>(<span class="string">&#x27;.*?story.*?&#x27;</span>))</span><br></pre></td></tr></table></figure><h4 id="查找标签里的内容"><a href="#查找标签里的内容" class="headerlink" title="查找标签里的内容"></a>查找标签里的内容</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> test1:</span><br><span class="line">print(item.get_text())</span><br><span class="line"><span class="comment">#get_text()可以把标签里面的内容全部弄出来，不管你是不是普通的text，还是有&lt;em&gt;标签，都可以</span></span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;之前有节实验课研究了爬虫，我深刻地感觉到了xpath就不适合玩爬虫（个人见解），于是我开始试着重新复习beautifulsoup库了&lt;/p&gt;</summary>
+      
+    
+    
+    
+    <category term="学习" scheme="http://ethanyi9.gitee.io/ethanyi9/categories/%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="python库" scheme="http://ethanyi9.gitee.io/ethanyi9/categories/%E5%AD%A6%E4%B9%A0/python%E5%BA%93/"/>
+    
+    
+    <category term="python" scheme="http://ethanyi9.gitee.io/ethanyi9/tags/python/"/>
+    
+  </entry>
   
   <entry>
     <title>numpy的学习笔记</title>
