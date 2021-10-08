@@ -1,0 +1,220 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>C语言网络编程中几个结构体的用法 | Ethanyi's Blog</title><meta name="keywords" content="学习"><meta name="author" content="ethanyi"><meta name="copyright" content="ethanyi"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="C语言网络编程中有很多结构体，其中很多的结构体对我来说很混乱，难以记住，想要先整理一下 用来处理网络通信的地址struct sockaddrsockaddr在头文件#include &lt;sys&#x2F;socket.h&gt;中定义 1234struct sockaddr &amp;#123;    unsigned short sa_family;  &#x2F;* 地址族, AF_xxx *&#x2F;    char sa">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C语言网络编程中几个结构体的用法">
+<meta property="og:url" content="http://ethanyi9.gitee.io/ethanyi9/2021/10/09/017c%E8%AF%AD%E8%A8%80%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E4%B8%AD%E5%87%A0%E4%B8%AA%E7%BB%93%E6%9E%84%E4%BD%93%E7%9A%84%E7%94%A8%E6%B3%95/index.html">
+<meta property="og:site_name" content="Ethanyi&#39;s Blog">
+<meta property="og:description" content="C语言网络编程中有很多结构体，其中很多的结构体对我来说很混乱，难以记住，想要先整理一下 用来处理网络通信的地址struct sockaddrsockaddr在头文件#include &lt;sys&#x2F;socket.h&gt;中定义 1234struct sockaddr &amp;#123;    unsigned short sa_family;  &#x2F;* 地址族, AF_xxx *&#x2F;    char sa">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/thanyi/image/20211009002116.png">
+<meta property="article:published_time" content="2021-10-09T15:25:17.000Z">
+<meta property="article:modified_time" content="2021-10-08T16:21:30.825Z">
+<meta property="article:author" content="ethanyi">
+<meta property="article:tag" content="学习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/thanyi/image/20211009002116.png"><link rel="shortcut icon" href="/ethanyi9/img/avatar.jpeg"><link rel="canonical" href="http://ethanyi9.gitee.io/ethanyi9/2021/10/09/017c%E8%AF%AD%E8%A8%80%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E4%B8%AD%E5%87%A0%E4%B8%AA%E7%BB%93%E6%9E%84%E4%BD%93%E7%9A%84%E7%94%A8%E6%B3%95/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/ethanyi9/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/ethanyi9/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-10-09 00:21:30'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><link rel="stylesheet" href="/css/my_css.css"><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/ethanyi9/atom.xml" title="Ethanyi's Blog" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/ethanyi9/img/avatar.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/ethanyi9/archives/"><div class="headline">文章</div><div class="length-num">17</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/ethanyi9/tags/"><div class="headline">标签</div><div class="length-num">16</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/ethanyi9/categories/"><div class="headline">分类</div><div class="length-num">18</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/ethanyi9/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/ethanyi9/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/ethanyi9/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/ethanyi9/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/ethanyi9/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-list"></i><span> 生活</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/ethanyi9/artitalk/"><i class="fa-fw fa fa-comments"></i><span> 说说</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/ethanyi9/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/thanyi/image/20211009002116.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/ethanyi9/">Ethanyi's Blog</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/ethanyi9/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/ethanyi9/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/ethanyi9/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/ethanyi9/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/ethanyi9/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-list"></i><span> 生活</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/ethanyi9/artitalk/"><i class="fa-fw fa fa-comments"></i><span> 说说</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/ethanyi9/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">C语言网络编程中几个结构体的用法</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-10-09T15:25:17.000Z" title="发表于 2021-10-09 23:25:17">2021-10-09</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-10-08T16:21:30.825Z" title="更新于 2021-10-09 00:21:30">2021-10-09</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/ethanyi9/categories/%E5%AD%A6%E4%B9%A0/">学习</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/ethanyi9/categories/%E5%AD%A6%E4%B9%A0/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">583</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>2分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>C语言网络编程中有很多结构体，其中很多的结构体对我来说很混乱，难以记住，想要先整理一下</p>
+<h1 id="用来处理网络通信的地址"><a href="#用来处理网络通信的地址" class="headerlink" title="用来处理网络通信的地址"></a>用来处理网络通信的地址</h1><h2 id="struct-sockaddr"><a href="#struct-sockaddr" class="headerlink" title="struct sockaddr"></a>struct sockaddr</h2><p>sockaddr在头文件<code>#include &lt;sys/socket.h&gt;</code>中定义</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sockaddr</span> &#123;</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">short</span> sa_family;  <span class="comment">/* 地址族, AF_xxx */</span></span><br><span class="line">    <span class="keyword">char</span> sa_data[<span class="number">14</span>];  <span class="comment">/* 14字节的协议地址*/</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="struct-sockaddr-in"><a href="#struct-sockaddr-in" class="headerlink" title="struct sockaddr_in"></a>struct sockaddr_in</h2><p>sockaddr_in在头文件<code>#include&lt;netinet/in.h&gt;或#include &lt;arpa/inet.h&gt;</code>中定义</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> &#123;</span></span><br><span class="line">    <span class="keyword">short</span> <span class="keyword">int</span> sin_family; <span class="comment">/* 地址族 */</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">short</span> <span class="keyword">int</span> sin_port; <span class="comment">/* 端口号 */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">in_addr</span> <span class="title">sin_addr</span>;</span> <span class="comment">/* Internet地址 */</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> sin_zero[<span class="number">8</span>]; <span class="comment">/* 与struct sockaddr一样的长度 */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="in-addr"><a href="#in-addr" class="headerlink" title="in_addr"></a>in_addr</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">in_addr</span> &#123;</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> s_addr;   <span class="comment">//32位ipv4的地址</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>这是个32位的ip地址，应该是用的16进制进行表示，比如说192.168.0.1就是（0xC0A80001）</p>
+<h2 id="sockaddr和sockaddr-in的区别"><a href="#sockaddr和sockaddr-in的区别" class="headerlink" title="sockaddr和sockaddr_in的区别"></a>sockaddr和sockaddr_in的区别</h2><p>sockaddr常用于bind、connect、recvfrom、sendto等函数的参数，指明地址信息，是一种通用的套接字地址。</p>
+<p>sockaddr_in 是internet环境下套接字的地址形式。所以在网络编程中我们会对sockaddr_in结构体进行操作，使用sockaddr_in来建立所需的信息，最后使用类型转化就可以了。一般先把sockaddr_in变量赋值后，强制类型转换后传入用sockaddr做参数的函数：sockaddr_in用于socket定义和赋值；</p>
+<h1 id="其他相关函数"><a href="#其他相关函数" class="headerlink" title="其他相关函数"></a>其他相关函数</h1><h2 id="htons-和-inet-addr"><a href="#htons-和-inet-addr" class="headerlink" title="htons() 和 inet_addr()"></a>htons() 和 inet_addr()</h2><p>htons()作用是将端口号由主机字节序转换为网络字节序的整数值。(host to net)（都是简写还挺好记的）</p>
+<p>inet_addr()作用是将一个IP字符串转化为一个网络字节序的整数值，用于sockaddr_in.sin_addr.s_addr。</p>
+<h2 id="inet-ntoa"><a href="#inet-ntoa" class="headerlink" title="inet_ntoa()"></a>inet_ntoa()</h2><p>将一个sin_addr结构体输出成IP字符串(network to ascii)。</p>
+<h1 id="给socket赋值的方法"><a href="#给socket赋值的方法" class="headerlink" title="给socket赋值的方法"></a>给socket赋值的方法</h1><h2 id="给地址赋值"><a href="#给地址赋值" class="headerlink" title="给地址赋值"></a>给地址赋值</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//第一种</span></span><br><span class="line">inet_aton(server_addr_string,&amp;myaddr.sin_addr); <span class="comment">//myaddr是一个sockaddr_in的结构体</span></span><br><span class="line"><span class="comment">//第二种</span></span><br><span class="line">myaddr.sin_addr.s_addr = inet_addr(<span class="string">&quot;这里写你要输入的ip地址，ipv4格式的就好了&quot;</span>)    </span><br></pre></td></tr></table></figure>
+
+<h2 id="给端口赋值"><a href="#给端口赋值" class="headerlink" title="给端口赋值"></a>给端口赋值</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">myaddr.sin_port = htons(端口数目)  <span class="comment">//括号里面就是数字就好了</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> sockfd;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">my_addr</span>;</span></span><br><span class="line">sockfd = socket(AF_INET, SOCK_STREAM, <span class="number">0</span>); <span class="comment">/* 套接字创建，返回值如果是-1就代表没创建成功 */</span></span><br><span class="line"></span><br><span class="line">my_addr.sin_family = AF_INET; <span class="comment">/* 主机字节序 这里指使用ipv4 */</span> </span><br><span class="line">my_addr.sin_port = htons(MYPORT); <span class="comment">/* short, 网络字节序 */</span></span><br><span class="line">my_addr.sin_addr.s_addr = inet_addr(“<span class="number">192.168</span><span class="number">.0</span><span class="number">.1</span>″);</span><br><span class="line"></span><br><span class="line">bzero(&amp;(my_addr.sin_zero), <span class="number">8</span>); <span class="comment">/* zero the rest of the struct */</span></span><br><span class="line"><span class="comment">/* bind()表示与my_addr中的ip地址来进行连接 */</span></span><br><span class="line">bind(sockfd, (struct sockaddr *)&amp;my_addr, <span class="keyword">sizeof</span>(struct sockaddr));</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">ethanyi</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://ethanyi9.gitee.io/ethanyi9/2021/10/09/017c%E8%AF%AD%E8%A8%80%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E4%B8%AD%E5%87%A0%E4%B8%AA%E7%BB%93%E6%9E%84%E4%BD%93%E7%9A%84%E7%94%A8%E6%B3%95/">http://ethanyi9.gitee.io/ethanyi9/2021/10/09/017c%E8%AF%AD%E8%A8%80%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E4%B8%AD%E5%87%A0%E4%B8%AA%E7%BB%93%E6%9E%84%E4%BD%93%E7%9A%84%E7%94%A8%E6%B3%95/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://ethanyi9.gitee.io/ethanyi9" target="_blank">Ethanyi's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/ethanyi9/tags/%E5%AD%A6%E4%B9%A0/">学习</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/thanyi/image/20211009002116.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button button--animated"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/ethanyi9/img/wechat.png" target="_blank"><img class="post-qr-code-img" src="/ethanyi9/img/wechat.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/ethanyi9/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="/ethanyi9/img/alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/ethanyi9/2021/09/09/016%E5%85%B3%E4%BA%8Epython%E4%B8%ADbeautiful%E5%BA%93%E7%9A%84%E7%94%A8%E6%B3%95/"><img class="next-cover" src="https://cdn.jsdelivr.net/gh/thanyi/image/20210910001722.png" onerror="onerror=null;src='/ethanyi9/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">关于python中beautifulsoup库的用法(超简单)</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%94%A8%E6%9D%A5%E5%A4%84%E7%90%86%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E7%9A%84%E5%9C%B0%E5%9D%80"><span class="toc-number">1.</span> <span class="toc-text">用来处理网络通信的地址</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#struct-sockaddr"><span class="toc-number">1.1.</span> <span class="toc-text">struct sockaddr</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#struct-sockaddr-in"><span class="toc-number">1.2.</span> <span class="toc-text">struct sockaddr_in</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#in-addr"><span class="toc-number">1.3.</span> <span class="toc-text">in_addr</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sockaddr%E5%92%8Csockaddr-in%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">1.4.</span> <span class="toc-text">sockaddr和sockaddr_in的区别</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0"><span class="toc-number">2.</span> <span class="toc-text">其他相关函数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#htons-%E5%92%8C-inet-addr"><span class="toc-number">2.1.</span> <span class="toc-text">htons() 和 inet_addr()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#inet-ntoa"><span class="toc-number">2.2.</span> <span class="toc-text">inet_ntoa()</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%99socket%E8%B5%8B%E5%80%BC%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">给socket赋值的方法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%99%E5%9C%B0%E5%9D%80%E8%B5%8B%E5%80%BC"><span class="toc-number">3.1.</span> <span class="toc-text">给地址赋值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%99%E7%AB%AF%E5%8F%A3%E8%B5%8B%E5%80%BC"><span class="toc-number">3.2.</span> <span class="toc-text">给端口赋值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BE%8B%E5%AD%90"><span class="toc-number">3.3.</span> <span class="toc-text">例子</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background-image: url('https://cdn.jsdelivr.net/gh/thanyi/image/20211009002116.png')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By ethanyi</div><div class="framework-info"><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly"><img src="https://cdn-1.nesxc.com/img/shields/Frame-Hexo-blue.svg" data-ll-status="loading"/></a><a target="_blank" rel="noopener" href="https://butterfly.js.org"> <img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&amp;logo=bitdefender" data-ll-status="loading"/></a></div><div class="footer_custom_text">博客小白，多多关照</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/ethanyi9/js/utils.js"></script><script src="/ethanyi9/js/main.js"></script><div class="js-pjax"><script>(()=>{
+  const $countDom = document.getElementById('twikoo-count')
+  const init = () => {
+    let initData = {
+      el: '#twikoo-wrap',
+      envId: 'ethanyi9-5ggn6apd7d4e7804',
+      region: 'ap-shanghai'
+    }
+
+    if (false) {
+      const otherData = false
+      initData = Object.assign(initData, otherData)
+    }
+    
+    twikoo.init(initData)
+  }
+
+  const getCount = () => {
+    twikoo.getCommentsCount({
+      envId: 'ethanyi9-5ggn6apd7d4e7804',
+      region: 'ap-shanghai',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      $countDom.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const loadTwikoo = (bool = false) => {
+    if (typeof twikoo === 'object') {
+      init()
+      bool && $countDom && setTimeout(getCount,0)
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo@1.3.0/dist/twikoo.all.min.js').then(()=> {
+        init()
+        bool && $countDom && setTimeout(getCount,0)
+      })
+    }
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo(true)
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
