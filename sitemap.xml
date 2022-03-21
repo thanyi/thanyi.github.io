@@ -391,6 +391,13 @@
   </url>
   
   <url>
+    <loc>https://thanyi.github.io/categories/%E5%AD%A6%E4%B9%A0/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
+    <lastmod>2022-03-21</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://thanyi.github.io/categories/%E5%AD%A6%E4%B9%A0/pip/</loc>
     <lastmod>2022-03-21</lastmod>
     <changefreq>daily</changefreq>
@@ -406,13 +413,6 @@
   
   <url>
     <loc>https://thanyi.github.io/categories/ctf/%E5%B0%8F%E7%BB%93/</loc>
-    <lastmod>2022-03-21</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://thanyi.github.io/categories/%E5%AD%A6%E4%B9%A0/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2022-03-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>

@@ -199,7 +199,7 @@
 <p>使用numpy把PIL的对象变成numpy的数组，再导入进Writer对象，（writer中只接受numpy数组或者其他的参数，反正PIL的不行）</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">img_array = np.array(image_PIL)</span><br><span class="line">writer.add_image(<span class="string">&#x27;train&#x27;</span>,img_array,<span class="number">1</span>,dataformats=<span class="string">&#x27;HWC&#x27;</span>) </span><br><span class="line">//参数分别是名字，数组（数据），<span class="number">1</span>是指step，每次变的话可要在tensorboard上有很多步骤，hwc是一种格式问题</span><br></pre></td></tr></table></figure>
 
-<p><img src="/.io//Users\ethanyi\AppData\Roaming\Typora\typora-user-images\image-20210913162314922.png" alt="image-20210913162314922"></p>
+<p><img src="/2021/08/06/013NLP%E5%AD%A6%E4%B9%A0_pytorch/Users\ethanyi\AppData\Roaming\Typora\typora-user-images\image-20210913162314922.png" alt="image-20210913162314922"></p>
 <p>或者我如果想要添加数组，做图像</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">100</span>):</span><br><span class="line">    writer.add_scalar(<span class="string">&quot;y=5x&quot;</span>,<span class="number">3</span>*i,i)</span><br></pre></td></tr></table></figure>
 
