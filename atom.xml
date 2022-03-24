@@ -6,7 +6,7 @@
   <link href="https://thanyi.github.io/atom.xml" rel="self"/>
   
   <link href="https://thanyi.github.io/"/>
-  <updated>2022-03-24T09:53:14.267Z</updated>
+  <updated>2022-03-24T09:56:23.252Z</updated>
   <id>https://thanyi.github.io/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>020nisp 重点错题回顾</title>
+    <title>nisp 重点错题回顾</title>
     <link href="https://thanyi.github.io/2022/03/24/020nisp-%E9%87%8D%E7%82%B9%E9%94%99%E9%A2%98%E5%9B%9E%E9%A1%BE/"/>
     <id>https://thanyi.github.io/2022/03/24/020nisp-%E9%87%8D%E7%82%B9%E9%94%99%E9%A2%98%E5%9B%9E%E9%A1%BE/</id>
     <published>2022-03-24T07:49:11.000Z</published>
-    <updated>2022-03-24T09:53:14.267Z</updated>
+    <updated>2022-03-24T09:56:23.252Z</updated>
     
     <content type="html"><![CDATA[<p>刚刚去试了一下nisp的模拟考试（nisp一级不好意思），还是有一些错题，这里来回顾一下</p><h3 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h3><p>基础的作用有：</p><ul><li>控制：在不同安全域上的网络连接点上布置一个安全控制点，进行进出数据的限制</li><li>隔离：可信任和不可信任的网络进行隔离</li><li>记录：对进出数据进行检查记录</li></ul><h4 id="防火墙的代理问题"><a href="#防火墙的代理问题" class="headerlink" title="防火墙的代理问题"></a>防火墙的代理问题</h4><p>现在的防火墙可以布置在七层模型中任意的一层</p><img src="/2022/03/24/020nisp-%E9%87%8D%E7%82%B9%E9%94%99%E9%A2%98%E5%9B%9E%E9%A1%BE/image-20220324155337445.png" class title="image-20220324155337445"><p>防火墙的代理总共有两个模式：</p><ul><li>透明代理：指内部主机连接外部主机的时候，完全感觉不到有防火墙的存在。防火墙相当于网桥</li><li>传统代理：需要在客户端设置代理服务器，也就是防火墙现在像是一个代理服务器，进行NAT之类的服务。</li></ul><h4 id="信息安全相关法律"><a href="#信息安全相关法律" class="headerlink" title="信息安全相关法律"></a>信息安全相关法律</h4><h4 id="信息系统安全保障"><a href="#信息系统安全保障" class="headerlink" title="信息系统安全保障"></a>信息系统安全保障</h4><p>蕴含了</p><ul><li>生命周期</li><li>保障要素</li><li>安全特性</li></ul><p>三个方面</p><h4 id="密码学研究的基石"><a href="#密码学研究的基石" class="headerlink" title="密码学研究的基石"></a>密码学研究的基石</h4><p>1949年香农发表《保密系统的信息理论》</p><h4 id="ISO-OSI安全体系"><a href="#ISO-OSI安全体系" class="headerlink" title="ISO/OSI安全体系"></a>ISO/OSI安全体系</h4><p>提供了五种服务，分别是：</p><ul><li>认证安全服务</li><li>访问控制安全服务</li><li>数据保密性安全服务</li><li>数据完整性安全服务</li><li>防抵赖服务</li></ul><h4 id="计算机系统安全保护能力"><a href="#计算机系统安全保护能力" class="headerlink" title="计算机系统安全保护能力"></a>计算机系统安全保护能力</h4><p>分为五个层级，安全等级由低到高分别是</p><ul><li>用户自主保护级</li><li>系统审计保护级</li><li>安全标记保护级</li><li>结构化保护级</li><li>访问验证保护级</li></ul>]]></content>
     
