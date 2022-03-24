@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://thanyi.github.io/2022/03/24/021%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6/</loc>
+    
+    <lastmod>2022-03-24</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://thanyi.github.io/2022/03/24/020nisp-%E9%87%8D%E7%82%B9%E9%94%99%E9%A2%98%E5%9B%9E%E9%A1%BE/</loc>
     
     <lastmod>2022-03-24</lastmod>
@@ -304,6 +311,13 @@
     <priority>0.6</priority>
   </url>
   
+  <url>
+    <loc>https://thanyi.github.io/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/</loc>
+    <lastmod>2022-03-24</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
 
   
   <url>
@@ -427,6 +441,13 @@
   
   <url>
     <loc>https://thanyi.github.io/categories/ctf/%E5%9F%BA%E7%A1%80/</loc>
+    <lastmod>2022-03-24</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://thanyi.github.io/categories/%E5%AD%A6%E4%B9%A0/nisp/</loc>
     <lastmod>2022-03-24</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
