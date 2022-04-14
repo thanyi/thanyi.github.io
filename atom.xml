@@ -6,7 +6,7 @@
   <link href="https://thanyi.github.io/atom.xml" rel="self"/>
   
   <link href="https://thanyi.github.io/"/>
-  <updated>2022-03-24T15:20:16.976Z</updated>
+  <updated>2022-04-14T04:31:20.344Z</updated>
   <id>https://thanyi.github.io/</id>
   
   <author>
@@ -15,6 +15,60 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>023frp内网穿透实现远程桌面</title>
+    <link href="https://thanyi.github.io/2022/04/09/023frp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E5%AE%9E%E7%8E%B0%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2/"/>
+    <id>https://thanyi.github.io/2022/04/09/023frp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E5%AE%9E%E7%8E%B0%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2/</id>
+    <published>2022-04-09T01:59:21.000Z</published>
+    <updated>2022-04-14T04:31:20.344Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近换了一个小电脑（也不是换了一个电脑，是终于把我的电脑系统换回windows了呜呜呜呜，windows真好我想说）</p><p>然后就想要把我的大电脑就放在宿舍用了，平时用小电脑出门就好了，于是在v2ex网站上找到了这个方法：</p><p>公网服务器 + frp内网穿透</p><h2 id="前置条件"><a href="#前置条件" class="headerlink" title="前置条件"></a>前置条件</h2><ul><li>一台vps服务器：这里我用的是腾讯云轻量，理论上来说只要一个有公网ip的服务器就好了</li><li>frp应用包：从github下载：<a href="https://github.com/fatedier/frp">https://github.com/fatedier/frp</a></li><li>一点linux知识</li></ul><h1 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h1><h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p>首先我们进行对github包的下载：</p><img src="/2022/04/09/023frp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E5%AE%9E%E7%8E%B0%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2/image-20220409101200243.png" class title="image-20220409101200243"><p>当然如果你是用linux连接linux那当我没说</p><p>一般的腾讯云都是x64结构的</p><p>下载下来的包都是有客户端和服务端的部分</p><blockquote><ul><li>“frps”、”frps_full.ini”、”frps.ini”是放在服务器端运行的可执行文件和配置文件。</li><li>“frpc”、”frpc_full.ini”、”frpc.ini”是放在客户端端运行的可执行文件和配置文件。</li></ul></blockquote><h2 id="服务器端配置"><a href="#服务器端配置" class="headerlink" title="服务器端配置"></a>服务器端配置</h2><p>进入服务器对我们下载的包进行解压</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf &lt;压缩包名字&gt;</span><br></pre></td></tr></table></figure><p>如果你不知道压缩包该放哪可以放在/opt 路径下</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv &lt;压缩包名字&gt; /opt</span><br></pre></td></tr></table></figure><p>然后我们进行配置：对frps.ini 进行修改：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[common]</span><br><span class="line">bind_addr &#x3D; 0.0.0.0</span><br><span class="line">bind_port &#x3D; 7000</span><br><span class="line">token &#x3D; 12310086</span><br><span class="line"></span><br><span class="line">dashboard_port &#x3D; 7500</span><br><span class="line">dashboard_user &#x3D; admin</span><br><span class="line">dashboard_pwd &#x3D; admin123</span><br></pre></td></tr></table></figure><p>参数：</p><ul><li>bind_addr是我们表示服务器允许从任何ip来的请求</li><li>bind_port是规定端口</li><li>token是可以当做服务器的连接密钥，需要这个东西</li><li>剩下的dashboard相关的是面板展示，可有可无</li></ul><p>修改好了直接运行frps执行文件就好了</p><p>如果你想将它放在后台，那建议你使用nohup命令</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup ./frps -c ./frps.ini &amp;</span><br></pre></td></tr></table></figure><h2 id="客户端配置"><a href="#客户端配置" class="headerlink" title="客户端配置"></a>客户端配置</h2><p>同理，下载github后进行配置</p><p>对frpc.ini 进行配置</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[common]</span><br><span class="line">server_addr &#x3D; &lt;服务器ip&gt;</span><br><span class="line">server_port &#x3D; 7000</span><br><span class="line">token&#x3D;12310086</span><br><span class="line"></span><br><span class="line">[RDP]</span><br><span class="line">type &#x3D; tcp</span><br><span class="line">local_ip &#x3D; 127.0.0.1</span><br><span class="line">local_port &#x3D; 3389</span><br><span class="line">remote_port &#x3D; 33389</span><br></pre></td></tr></table></figure><p>然后运行这个程序</p><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">frpc.exe -c frpc.ini</span><br></pre></td></tr></table></figure><p>后面如果有success就是成功了</p><blockquote><p>注意：一定要在这个时候进行服务器的防火墙设置</p></blockquote><h1 id="开始使用"><a href="#开始使用" class="headerlink" title="开始使用"></a>开始使用</h1><p>在客户端进行使用的时候是这样的：</p><img src="/2022/04/09/023frp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E5%AE%9E%E7%8E%B0%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2/image-20220414121931052.png" class title="image-20220414121931052"><p>ip就是我们自己的服务器的公网ip</p><blockquote><p>记得在被控制端的电脑上进行设置，并且只有windows专业版的电脑才可以设置！</p></blockquote>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;最近换了一个小电脑（也不是换了一个电脑，是终于把我的电脑系统换回windows了呜呜呜呜，windows真好我想说）&lt;/p&gt;
+&lt;p&gt;然后就想</summary>
+      
+    
+    
+    
+    <category term="技术" scheme="https://thanyi.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+    <category term="技术" scheme="https://thanyi.github.io/tags/%E6%8A%80%E6%9C%AF/"/>
+    
+    <category term="frp" scheme="https://thanyi.github.io/tags/frp/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>nisp-错题回顾（二）</title>
+    <link href="https://thanyi.github.io/2022/03/25/022nisp-%E9%94%99%E9%A2%98%E5%9B%9E%E9%A1%BE%EF%BC%88%E4%BA%8C%EF%BC%89/"/>
+    <id>https://thanyi.github.io/2022/03/25/022nisp-%E9%94%99%E9%A2%98%E5%9B%9E%E9%A1%BE%EF%BC%88%E4%BA%8C%EF%BC%89/</id>
+    <published>2022-03-25T02:05:15.000Z</published>
+    <updated>2022-03-25T02:42:23.620Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="PGP"><a href="#PGP" class="headerlink" title="PGP"></a>PGP</h3><p>PGP是一个免费的个人编写的密码软件</p><p>全称是Pretty Good Privacy，它采用了一种RSA和传统加密结合的机制</p><h3 id="应急响应"><a href="#应急响应" class="headerlink" title="应急响应"></a>应急响应</h3><p>阶段有六点：</p><p>准备、检测、遏制、根除、恢复、跟踪总结</p><h3 id="黑客获取口令的方式"><a href="#黑客获取口令的方式" class="headerlink" title="黑客获取口令的方式"></a>黑客获取口令的方式</h3><ul><li>暴力破解</li><li>键盘记录木马</li><li>屏幕快照密码</li></ul><h3 id="储存管理"><a href="#储存管理" class="headerlink" title="储存管理"></a>储存管理</h3><p>主要任务：</p><ul><li>对内存进行分配、保护和扩充</li><li>为多道程序运行提供有力支撑</li><li>便于用户储存，提高储存空间利用率</li></ul><h3 id="无线路由器的三种上网方式"><a href="#无线路由器的三种上网方式" class="headerlink" title="无线路由器的三种上网方式"></a>无线路由器的三种上网方式</h3><p>PPPoE、动态IP、静态IP</p><h3 id="信息安全的三个支柱"><a href="#信息安全的三个支柱" class="headerlink" title="信息安全的三个支柱"></a>信息安全的三个支柱</h3><p>技术、法律法规、管理</p><h3 id="信息安全事件划分"><a href="#信息安全事件划分" class="headerlink" title="信息安全事件划分"></a>信息安全事件划分</h3><p>特别重大事件、重大事件、较大事件和一般事件</p><h3 id="密码学的目的"><a href="#密码学的目的" class="headerlink" title="密码学的目的"></a>密码学的目的</h3><p>研究数据保密</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;PGP&quot;&gt;&lt;a href=&quot;#PGP&quot; class=&quot;headerlink&quot; title=&quot;PGP&quot;&gt;&lt;/a&gt;PGP&lt;/h3&gt;&lt;p&gt;PGP是一个免费的个人编写的密码软件&lt;/p&gt;
+&lt;p&gt;全称是Pretty Good Privacy，它采用了一种RSA和传统加密结合的</summary>
+      
+    
+    
+    
+    <category term="学习" scheme="https://thanyi.github.io/categories/%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="nisp" scheme="https://thanyi.github.io/categories/%E5%AD%A6%E4%B9%A0/nisp/"/>
+    
+    
+    <category term="nisp" scheme="https://thanyi.github.io/tags/nisp/"/>
+    
+  </entry>
   
   <entry>
     <title>关于数字证书</title>
@@ -48,15 +102,15 @@
     <link href="https://thanyi.github.io/2022/03/24/020nisp-%E9%87%8D%E7%82%B9%E9%94%99%E9%A2%98%E5%9B%9E%E9%A1%BE/"/>
     <id>https://thanyi.github.io/2022/03/24/020nisp-%E9%87%8D%E7%82%B9%E9%94%99%E9%A2%98%E5%9B%9E%E9%A1%BE/</id>
     <published>2022-03-24T07:49:11.000Z</published>
-    <updated>2022-03-24T13:42:57.865Z</updated>
+    <updated>2022-03-25T02:44:53.653Z</updated>
     
-    <content type="html"><![CDATA[<p>刚刚去试了一下nisp的模拟考试（nisp一级不好意思），还是有一些错题，这里来回顾一下</p><h2 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h2><p>基础的作用有：</p><ul><li>控制：在不同安全域上的网络连接点上布置一个安全控制点，进行进出数据的限制</li><li>隔离：可信任和不可信任的网络进行隔离</li><li>记录：对进出数据进行检查记录</li></ul><h4 id="防火墙的代理问题"><a href="#防火墙的代理问题" class="headerlink" title="防火墙的代理问题"></a>防火墙的代理问题</h4><p>现在的防火墙可以布置在七层模型中任意的一层</p><img src="/2022/03/24/020nisp-%E9%87%8D%E7%82%B9%E9%94%99%E9%A2%98%E5%9B%9E%E9%A1%BE/image-20220324155337445.png" class title="image-20220324155337445"><p>防火墙的代理总共有两个模式：</p><ul><li>透明代理：指内部主机连接外部主机的时候，完全感觉不到有防火墙的存在。防火墙相当于网桥</li><li>传统代理：需要在客户端设置代理服务器，也就是防火墙现在像是一个代理服务器，进行NAT之类的服务。</li></ul><h2 id="信息系统安全保障"><a href="#信息系统安全保障" class="headerlink" title="信息系统安全保障"></a>信息系统安全保障</h2><p>蕴含了</p><ul><li>生命周期</li><li>保障要素</li><li>安全特性</li></ul><p>三个方面</p><h2 id="密码学研究的基石"><a href="#密码学研究的基石" class="headerlink" title="密码学研究的基石"></a>密码学研究的基石</h2><p>1949年香农发表《保密系统的信息理论》</p><h2 id="ISO-OSI安全体系"><a href="#ISO-OSI安全体系" class="headerlink" title="ISO/OSI安全体系"></a>ISO/OSI安全体系</h2><p>提供了五种服务，分别是：</p><ul><li>认证安全服务</li><li>访问控制安全服务</li><li>数据保密性安全服务</li><li>数据完整性安全服务</li><li>防抵赖服务</li></ul><h2 id="计算机系统安全保护能力"><a href="#计算机系统安全保护能力" class="headerlink" title="计算机系统安全保护能力"></a>计算机系统安全保护能力</h2><p>分为五个层级，安全等级由低到高分别是</p><ol><li>用户自主保护级</li><li>系统审计保护级</li><li>安全标记保护级</li><li>结构化保护级</li><li>访问验证保护级</li></ol><h2 id="访问控制的应用"><a href="#访问控制的应用" class="headerlink" title="访问控制的应用"></a>访问控制的应用</h2><p>入网访问控制、网络权限限制、目录级安全控制、属性安全控制、网络服务器安全控制、网络检测和锁定控制、网络端口和节点的安全控制、防火墙控制等等</p><h4 id="网络权限控制"><a href="#网络权限控制" class="headerlink" title="网络权限控制"></a>网络权限控制</h4><p>是一种防止网络非法操作而采取的安全保护措施。</p><p>用户对网络资源的访问权限通常用一个<strong>访问控制表</strong>来描述</p><h4 id="目录级安全控制"><a href="#目录级安全控制" class="headerlink" title="目录级安全控制"></a>目录级安全控制</h4><p>控制用户对目录、文件和设备的访问，或者是指定对目录及目录一下的的子目录和文件的使用权限。</p><p>注：感觉就是linux里面的文件权限啊</p><h4 id="网络服务器安全控制"><a href="#网络服务器安全控制" class="headerlink" title="网络服务器安全控制"></a>网络服务器安全控制</h4><p>允许通过服务器控制台执行的安全控制操作。</p><p>包括：用户利用控制台装载和卸载模块、安装和删除软件。</p><h4 id="从用户的角度"><a href="#从用户的角度" class="headerlink" title="从用户的角度"></a>从用户的角度</h4><p>网络的权限控制分为<strong>三</strong>类用户：</p><ul><li>特殊用户：具有系统管理权限的管理员等</li><li>一般用户：系统管理员根据实际需要而分配到一定权限的用户</li><li>审计用户：负责<strong>审计网络安全控制</strong>和<strong>资源使用情况</strong>的用户</li></ul><p>注：感觉也没有见过第三类的用户啊？单独负责审计和资源使用情况的用户？看看后面有没有机会见到吧</p><h2 id="信息安全中的完整性保护"><a href="#信息安全中的完整性保护" class="headerlink" title="信息安全中的完整性保护"></a>信息安全中的完整性保护</h2><p>主要是防篡改、防删除、防插入</p><h2 id="公钥基础设施"><a href="#公钥基础设施" class="headerlink" title="公钥基础设施"></a>公钥基础设施</h2><p>公钥基础设施（Public Key Infrastructure）简称PKI ，是一个公钥管理平台，能够为所有的网络应用提供加密和数字签名等服务所需要的<strong>密钥</strong>和<strong>证书管理体系</strong></p><p>说是这么说，它自称是个什么什么<strong>设施</strong>，但其实说白了他是一个<strong>机制</strong></p><h4 id="组成"><a href="#组成" class="headerlink" title="组成"></a>组成</h4><ul><li>X.509格式的证书和证书废止列表</li><li>证书授权中心（Certificate Authority）操作协议</li><li>CA管理协议</li><li>CA政策制定</li></ul>]]></content>
+    <content type="html"><![CDATA[<p>刚刚去试了一下nisp的模拟考试（nisp一级不好意思），还是有一些错题，这里来回顾一下</p><h1 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h1><p>基础的作用有：</p><ul><li>控制：在不同安全域上的网络连接点上布置一个安全控制点，进行进出数据的限制</li><li>隔离：可信任和不可信任的网络进行隔离</li><li>记录：对进出数据进行检查记录</li></ul><p>功能包括：</p><p>包过滤：作用在网络层</p><p>审计与报警、远程管理、网络地址转换、代理、MAC地址和IP地址绑定、流量控制、统计分析和计费</p><h4 id="防火墙的代理问题"><a href="#防火墙的代理问题" class="headerlink" title="防火墙的代理问题"></a>防火墙的代理问题</h4><p>现在的防火墙可以布置在七层模型中任意的一层</p><img src="/2022/03/24/020nisp-%E9%87%8D%E7%82%B9%E9%94%99%E9%A2%98%E5%9B%9E%E9%A1%BE/image-20220324155337445.png" class title="image-20220324155337445"><p>防火墙的代理总共有两个模式：</p><ul><li>透明代理：指内部主机连接外部主机的时候，完全感觉不到有防火墙的存在。防火墙相当于网桥</li><li>传统代理：需要在客户端设置代理服务器，也就是防火墙现在像是一个代理服务器，进行NAT之类的服务。</li></ul><h1 id="信息系统安全保障"><a href="#信息系统安全保障" class="headerlink" title="信息系统安全保障"></a>信息系统安全保障</h1><p>蕴含了</p><ul><li>生命周期</li><li>保障要素</li><li>安全特性</li></ul><p>三个方面</p><h1 id="密码学研究的基石"><a href="#密码学研究的基石" class="headerlink" title="密码学研究的基石"></a>密码学研究的基石</h1><p>1949年香农发表《保密系统的信息理论》</p><h1 id="ISO-OSI安全体系"><a href="#ISO-OSI安全体系" class="headerlink" title="ISO/OSI安全体系"></a>ISO/OSI安全体系</h1><p>提供了五种服务，分别是：</p><ul><li>认证安全服务</li><li>访问控制安全服务</li><li>数据保密性安全服务</li><li>数据完整性安全服务</li><li>防抵赖服务</li></ul><h1 id="计算机系统安全保护能力"><a href="#计算机系统安全保护能力" class="headerlink" title="计算机系统安全保护能力"></a>计算机系统安全保护能力</h1><p>分为五个层级，安全等级由低到高分别是</p><ol><li>用户自主保护级</li><li>系统审计保护级</li><li>安全标记保护级</li><li>结构化保护级</li><li>访问验证保护级</li></ol><h1 id="访问控制的应用"><a href="#访问控制的应用" class="headerlink" title="访问控制的应用"></a>访问控制的应用</h1><p>入网访问控制、网络权限限制、目录级安全控制、属性安全控制、网络服务器安全控制、网络检测和锁定控制、网络端口和节点的安全控制、防火墙控制等等</p><h3 id="网络权限控制"><a href="#网络权限控制" class="headerlink" title="网络权限控制"></a>网络权限控制</h3><p>是一种防止网络非法操作而采取的安全保护措施。</p><p>用户对网络资源的访问权限通常用一个<strong>访问控制表</strong>来描述</p><h3 id="目录级安全控制"><a href="#目录级安全控制" class="headerlink" title="目录级安全控制"></a>目录级安全控制</h3><p>控制用户对目录、文件和设备的访问，或者是指定对目录及目录一下的的子目录和文件的使用权限。</p><p>注：感觉就是linux里面的文件权限啊</p><h3 id="网络服务器安全控制"><a href="#网络服务器安全控制" class="headerlink" title="网络服务器安全控制"></a>网络服务器安全控制</h3><p>允许通过服务器控制台执行的安全控制操作。</p><p>包括：用户利用控制台装载和卸载模块、安装和删除软件。</p><h3 id="从用户的角度"><a href="#从用户的角度" class="headerlink" title="从用户的角度"></a>从用户的角度</h3><p>网络的权限控制分为<strong>三</strong>类用户：</p><ul><li>特殊用户：具有系统管理权限的管理员等</li><li>一般用户：系统管理员根据实际需要而分配到一定权限的用户</li><li>审计用户：负责<strong>审计网络安全控制</strong>和<strong>资源使用情况</strong>的用户</li></ul><p>注：感觉也没有见过第三类的用户啊？单独负责审计和资源使用情况的用户？看看后面有没有机会见到吧</p><h1 id="信息安全"><a href="#信息安全" class="headerlink" title="信息安全"></a>信息安全</h1><h2 id="完整性保护"><a href="#完整性保护" class="headerlink" title="完整性保护"></a>完整性保护</h2><p>主要是防篡改、防删除、防插入</p><h2 id="安全管理"><a href="#安全管理" class="headerlink" title="安全管理"></a>安全管理</h2><h3 id="风险管理"><a href="#风险管理" class="headerlink" title="风险管理"></a>风险管理</h3><p>信息安全管理的核心在于风险管理</p><p>包括风险评估、风险消减、风险控制</p><h3 id="安全事件处理"><a href="#安全事件处理" class="headerlink" title="安全事件处理"></a>安全事件处理</h3><p>分为五个阶段：</p><p>准备阶段、检测阶段、抑制阶段、根除阶段、恢复阶段</p><h3 id="资产管理"><a href="#资产管理" class="headerlink" title="资产管理"></a>资产管理</h3><p>当公司人员想要进行敏感数据清除时正确的做法是：</p><p><strong>使用彻底清除软件进行磁盘擦除</strong></p><h1 id="公钥基础设施"><a href="#公钥基础设施" class="headerlink" title="公钥基础设施"></a>公钥基础设施</h1><p>公钥基础设施（Public Key Infrastructure）简称PKI ，是一个公钥管理平台，能够为所有的网络应用提供加密和数字签名等服务所需要的<strong>密钥</strong>和<strong>证书管理体系</strong></p><p>说是这么说，它自称是个什么什么<strong>设施</strong>，但其实说白了他是一个<strong>机制</strong></p><h4 id="组成"><a href="#组成" class="headerlink" title="组成"></a>组成</h4><ul><li>X.509格式的证书和证书废止列表</li><li>证书授权中心（Certificate Authority）操作协议</li><li>CA管理协议</li><li>CA政策制定</li></ul><h4 id="管理对象"><a href="#管理对象" class="headerlink" title="管理对象"></a>管理对象</h4><p>证书、密钥、证书撤销</p><h1 id="数字版权管理"><a href="#数字版权管理" class="headerlink" title="数字版权管理"></a>数字版权管理</h1><p>Digital Right Management 功能有：</p><ul><li>数字媒体加密</li><li>阻止非法数字内容注册</li><li>用户行为监控</li></ul><h1 id="第二层隧道协议"><a href="#第二层隧道协议" class="headerlink" title="第二层隧道协议"></a>第二层隧道协议</h1><ul><li>PPTP：(point to point neling protocol) 点对点隧道协议</li><li>L2F：（Layer 2 forwarding）二层转发协议</li><li>L2TP：这个协议结合了前两个协议的优点，已经是二次隧道协议的工业标准</li></ul><h1 id="VPN的核心技术"><a href="#VPN的核心技术" class="headerlink" title="VPN的核心技术"></a>VPN的核心技术</h1><ul><li>隧道技术</li><li>身份认证</li><li>访问控制</li></ul><h1 id="Kerberos"><a href="#Kerberos" class="headerlink" title="Kerberos"></a>Kerberos</h1><p>一个对称DES加密系统，使用一个集中式的专钥密码功能，核心是KDC</p><h1 id="宏病毒"><a href="#宏病毒" class="headerlink" title="宏病毒"></a>宏病毒</h1><p>感觉宏病毒主要就是指一些Office相关文档里面的病毒，针对这些病毒把它叫做“宏病毒”</p><p>一旦打开带有宏病毒的文档，宏就会被执行，宏病毒就会被激活，转移到计算机上，驻留在Normal模板上。在此之后所有自动保存的文档都会“感染”上这种宏病毒，如果其他用户打开了感染病毒的文档，宏病毒又会转移到他的计算机上</p>]]></content>
     
     
       
       
     <summary type="html">&lt;p&gt;刚刚去试了一下nisp的模拟考试（nisp一级不好意思），还是有一些错题，这里来回顾一下&lt;/p&gt;
-&lt;h2 id=&quot;防火墙&quot;&gt;&lt;a href=&quot;#防火墙&quot; class=&quot;headerlink&quot; title=&quot;防火墙&quot;&gt;&lt;/a&gt;防火墙&lt;/h2&gt;&lt;p&gt;基础的作用有：&lt;/p&gt;
+&lt;h1 id=&quot;防火墙&quot;&gt;&lt;a href=&quot;#防火墙&quot; class=&quot;headerlink&quot; title=&quot;防火墙&quot;&gt;&lt;/a&gt;防火墙&lt;/h1&gt;&lt;p&gt;基础的作用有：&lt;/p&gt;
 &lt;u</summary>
       
     
@@ -508,64 +562,6 @@
     <category term="技术" scheme="https://thanyi.github.io/tags/%E6%8A%80%E6%9C%AF/"/>
     
     <category term="安装" scheme="https://thanyi.github.io/tags/%E5%AE%89%E8%A3%85/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>正则表达式的基本使用</title>
-    <link href="https://thanyi.github.io/2021/03/05/003%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/"/>
-    <id>https://thanyi.github.io/2021/03/05/003%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</id>
-    <published>2021-03-04T16:00:00.000Z</published>
-    <updated>2021-08-06T08:02:07.469Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>正则表达式有些很难记住的理论，在这里一次性整理一下，帮助更深刻一点的掌控。</p><h2 id="正则表达式是什么"><a href="#正则表达式是什么" class="headerlink" title="正则表达式是什么"></a>正则表达式是什么</h2><p>正则表达式可以把它看做是一种通配符的增强版，它可以帮你匹配你想要的字符串。</p><p>在很多地方可以用到正则表达式，比如编译器中的词法分析器、网址上的注册表单、爬虫中用正则表达式来提取信息等等。所以我们可以更加深刻地理解正则表达式的用处之广，好多地方都不能缺少它。</p><p>以下是正则表达式正式内容，一些最基础的用法。</p><h1 id="限定符"><a href="#限定符" class="headerlink" title="限定符"></a>限定符</h1><p>限定符是一类特殊的字符，以下归纳：</p><table><thead><tr><th>符号</th><th>含义</th><th>例子</th></tr></thead><tbody><tr><td>?</td><td>表示之前的字符出现零次或者一次</td><td>end? –&gt; 表示en或者end</td></tr><tr><td>*</td><td>表示之前的字符出现零次或者多次</td><td>end* –&gt; 表示en或者enddddd 都行</td></tr><tr><td>+</td><td>表示之前的字符出现一次或者多次</td><td>end+ –&gt; 表示end或者endddddd</td></tr><tr><td>{…}</td><td>之中可以精确表示字符出现的次数</td><td>en{2}d –&gt; 表示ennd     en{2,3}d –&gt; 表示ennd或者ennnd</td></tr></tbody></table><p>如果想要限定多个运算符，比如ab，就直接打上括号再添加符号就行了，比如(ab)? 就表示 ab 或者空字符串。</p><h1 id="“或”运算符"><a href="#“或”运算符" class="headerlink" title="“或”运算符"></a>“或”运算符</h1><table><thead><tr><th>符号</th><th>含义</th><th>例子</th></tr></thead><tbody><tr><td>|</td><td>两者之间的取或</td><td>a (cat|dog) –&gt; a cat 或者 a dog</td></tr></tbody></table><h1 id="字符类"><a href="#字符类" class="headerlink" title="字符类"></a>字符类</h1><table><thead><tr><th>符号</th><th>含义</th><th>例子</th></tr></thead><tbody><tr><td>[…]</td><td>匹配 <strong>[…]</strong> 中的所有字符</td><td>[abc] 会匹配所有字符串中的a,b,c 的字符</td></tr><tr><td>[^…]</td><td>表示匹配除了[…]中字符以外的所有字符串</td><td>[^abc]会匹配所有字符串中除了a,b,c 的字符</td></tr></tbody></table><p>注：[a-z]表示所有的小写字符，[A-Z]表示所有大写字符，[a-zA-Z0-9]表示所有的英文字符和数字</p><p>[^0-9]表示所有的非数字字符(包括换行符)</p><h1 id="元字符"><a href="#元字符" class="headerlink" title="元字符"></a>元字符</h1><p>元字符是一组正则表达式中预先定义好的一系列常用字符类型，比如数字、空白符、单词开头、单词结尾等。这些元字符中的大多数以反斜杠\ 开头</p><table><thead><tr><th>符号</th><th>含义</th></tr></thead><tbody><tr><td>\d</td><td>所有数字字符，等同于[0-9]</td></tr><tr><td>\w</td><td>单词字符，表示所有英文字符、数字和下划线</td></tr><tr><td>\s</td><td>空白符，包含tab字符以及换行符</td></tr><tr><td>\D</td><td>表示所有<strong>非数字字符</strong></td></tr><tr><td>\W</td><td>表示所有<strong>非单词字符</strong></td></tr><tr><td>\S</td><td>表示所有<strong>非空白字符</strong></td></tr><tr><td>.</td><td>表示所有任意的字符(不包括换行符)</td></tr><tr><td>^</td><td>匹配行首，^a 表示匹配所有行首的a</td></tr><tr><td>$</td><td>匹配行尾，a$表示匹配所有行尾的a</td></tr></tbody></table><h1 id="贪婪匹配和懒惰匹配-lazy-match"><a href="#贪婪匹配和懒惰匹配-lazy-match" class="headerlink" title="贪婪匹配和懒惰匹配(lazy match)"></a>贪婪匹配和懒惰匹配(lazy match)</h1><p>之前讲述?+{}之类的限定符的时候，都是默认匹配尽可能多的字符</p><p>比如我想要限定HTML文本中的字符串：</p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span> this is an example <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure><p>我们使用&lt;.*&gt; 来进行匹配，结果匹配下来的字符串会是：</p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span> this is an example <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure><p>因为默认的贪婪匹配(greedy match)会匹配尽可能多的字符串，所以匹配了第一个</p><p>的左边”&lt;”和第二个</p><p>右边的”&gt;” 中间的所有字符串</p><p>解决方法：</p><p>使用&lt;.*?&gt;来讲贪婪匹配(greedy match)变成懒惰匹配(lazy match)</p><p>这样的话，匹配出来的字符串就会变成”p”和”p”两个标签</p><p>参考视频：<a href="https://www.bilibili.com/video/BV1da4y1p7iZ?from=search&amp;seid=10813203089957646846">https://www.bilibili.com/video/BV1da4y1p7iZ?from=search&amp;seid=10813203089957646846</a></p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;正则表达式有些很难记住的理论，在这里一次性整理一下，帮助更深刻一点的掌控。&lt;/p&gt;
-&lt;h2 id=&quot;正则表达式是什么&quot;&gt;&lt;a href=&quot;#</summary>
-      
-    
-    
-    
-    <category term="学习" scheme="https://thanyi.github.io/categories/%E5%AD%A6%E4%B9%A0/"/>
-    
-    <category term="正则表达式" scheme="https://thanyi.github.io/categories/%E5%AD%A6%E4%B9%A0/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/"/>
-    
-    
-    <category term="技术" scheme="https://thanyi.github.io/tags/%E6%8A%80%E6%9C%AF/"/>
-    
-    <category term="正则表达式" scheme="https://thanyi.github.io/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>关于git的基本使用</title>
-    <link href="https://thanyi.github.io/2021/02/25/002%E4%BB%A3%E7%A0%81%E6%8F%90%E4%BA%A4/"/>
-    <id>https://thanyi.github.io/2021/02/25/002%E4%BB%A3%E7%A0%81%E6%8F%90%E4%BA%A4/</id>
-    <published>2021-02-24T16:00:00.000Z</published>
-    <updated>2021-12-07T14:39:21.655Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在本地写好代码了然后想要上传到GitHub的时候，使用git命令一直要忘记命令过程，现在把上传GitHub的命令过程整理一下</p><h1 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h1><p>git安装：<a href="https://www.cnblogs.com/xueweisuoyong/p/11914045.html">https://www.cnblogs.com/xueweisuoyong/p/11914045.html</a></p><h2 id="绑定用户"><a href="#绑定用户" class="headerlink" title="绑定用户"></a>绑定用户</h2><ul><li>下载好Git后，点击右键，打开git bash here</li></ul><ul><li><p>开始绑定用户名和邮箱（注：用户名是你GitHub的用户名，邮箱是你GitHub的绑定邮箱，上传到gitee的话同理）</p><p>输入代码</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --user.name &quot;你的用户名&quot;</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --user.email &quot;你的邮箱&quot;</span><br></pre></td></tr></table></figure></li></ul><p><img src="https://cdn.jsdelivr.net/gh/thanyi/image/image-20210225171909368.png"></p><h2 id="SSHkey-设置"><a href="#SSHkey-设置" class="headerlink" title="SSHkey 设置"></a>SSHkey 设置</h2><ul><li><p>在git bash中输入代码：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -(路径) -&quot;github绑定邮箱&quot;</span><br></pre></td></tr></table></figure></li></ul><p>​        注：路径是指C盘或者D盘路径</p><p>​        例如：ssh-keygen -t rsa -C -“<a href="mailto:&#x31;&#51;&#x31;&#x36;&#53;&#x39;&#x34;&#49;&#x31;&#x35;&#x40;&#113;&#x71;&#x2e;&#x63;&#111;&#x6d;">&#x31;&#51;&#x31;&#x36;&#53;&#x39;&#x34;&#49;&#x31;&#x35;&#x40;&#113;&#x71;&#x2e;&#x63;&#111;&#x6d;</a>“</p><p>​    输入后git bash中会有三次提醒输入操作<br>​            1）是路径确认，直接按回车存默认路径即可<br>​            2）直接回车键，这里我们不使用密码进行登录, 用密码太麻烦;<br>​            3）确认密码,直接回车键</p><p>​    （也就是说三次回车）</p><p>​    之后电脑C盘路径C:\Users\Administrator（电脑名）.ssh 下会生成 id_rsa.pub 文件，将其中内容复制下来</p><ul><li>在github上找到设置界面，找到其中的”SSH and GPG keys”，点击New SSH key</li></ul><p><img src="https://cdn.jsdelivr.net/gh/thanyi/image/2.png"></p><ul><li><p>在key输入框中将之前复制的内容输入，title可自定义<img src="https://cdn.jsdelivr.net/gh/thanyi/image/image-20210225173650772.png"></p><p>结束后即SSH keys绑定成功，前期所有准备结束</p></li></ul><h1 id="git使用"><a href="#git使用" class="headerlink" title="git使用"></a>git使用</h1><h2 id="git本地"><a href="#git本地" class="headerlink" title="git本地"></a>git本地</h2><ul><li><p>首先创建一个文件夹，文件夹中是我们已经写好的代码，之后Git命令操作都基于此文件夹</p><p>在文件夹路径下打开git bush</p><p>输入命令</p> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure><p>初始化成功后原文件夹里多了一个隐藏文件夹.git </p><p>输入代码</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br></pre></td></tr></table></figure><p>即可上传 （代表将此文件夹里面的所有文件都保存在暂存区中）</p><p>然后以后的修改使用commit命令进行提交</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m &quot;这里是备注内容&quot;</span><br></pre></td></tr></table></figure><p>这是将修改的内容提交到本地仓库</p><p>注：add是将代码提交到我们所谓的“缓存区”，而commit则是将我们在缓存区的代码提交到本地仓库。</p><p>​        git有好几个区，工作区（workspace）、暂存区（index）、本地仓库（local repository）、还有远程仓库（remote repository）</p></li></ul><h2 id="git提交到远程"><a href="#git提交到远程" class="headerlink" title="git提交到远程"></a>git提交到远程</h2><ul><li><p>在github上创建仓库</p></li><li><p>找到创建的仓库的地址(http地址、ssh地址)</p></li><li><p>输入命令：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin 你复制的地址</span><br></pre></td></tr></table></figure><p>注：创建了一个远程仓库名叫origin，和GitHub上的仓库建立了联系</p></li><li><p>然后，连接代码与远程的仓库</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull -u origin master</span><br></pre></td></tr></table></figure></li><li><p>最后，将本地仓库的代码传输到GitHub的仓库上，输入代码</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure><p>至此，代码到GitHub转换成功</p></li></ul><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>git的一系列代码是如下的这样：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;这里是备注内容&quot;</span><br><span class="line">git remote add origin 你复制的地址</span><br><span class="line">git pull -u origin master</span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;在本地写好代码了然后想要上传到GitHub的时候，使用git命令一直要忘记命令过程，现在把上传GitHub的命令过程整理一下&lt;/p&gt;
-&lt;h1</summary>
-      
-    
-    
-    
-    <category term="教程" scheme="https://thanyi.github.io/categories/%E6%95%99%E7%A8%8B/"/>
-    
-    <category term="git" scheme="https://thanyi.github.io/categories/%E6%95%99%E7%A8%8B/git/"/>
-    
-    
-    <category term="技术" scheme="https://thanyi.github.io/tags/%E6%8A%80%E6%9C%AF/"/>
-    
-    <category term="git" scheme="https://thanyi.github.io/tags/git/"/>
     
   </entry>
   
