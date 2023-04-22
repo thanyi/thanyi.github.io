@@ -6,7 +6,7 @@
   <link href="https://thanyi.github.io/atom.xml" rel="self"/>
   
   <link href="https://thanyi.github.io/"/>
-  <updated>2023-04-22T02:03:10.351Z</updated>
+  <updated>2023-04-22T03:09:57.116Z</updated>
   <id>https://thanyi.github.io/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>027_神经网络相关名称总结</title>
+    <title>神经网络相关名称总结</title>
     <link href="https://thanyi.github.io/2023/04/22/027-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3%E5%90%8D%E7%A7%B0%E6%80%BB%E7%BB%93/"/>
     <id>https://thanyi.github.io/2023/04/22/027-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3%E5%90%8D%E7%A7%B0%E6%80%BB%E7%BB%93/</id>
     <published>2023-04-22T02:03:10.000Z</published>
-    <updated>2023-04-22T02:03:10.351Z</updated>
+    <updated>2023-04-22T03:09:57.116Z</updated>
     
     <content type="html"><![CDATA[<p>有些时候在跑神经网络模型的时候发现有很多专业名词和函数老是记不清，所以想在这里整理一下，方便归纳。</p><h1 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h1><h2 id="BatchNorm2d-函数"><a href="#BatchNorm2d-函数" class="headerlink" title="BatchNorm2d()函数"></a>BatchNorm2d()函数</h2><h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><p>BatchNorm2d归一化，就是指使用BatchNorm2d函数来进行</p><p>它的目的是使得数据在进行Relu之前不会因为数据过大而导致网络性能的不稳定</p><h3 id="位置和使用"><a href="#位置和使用" class="headerlink" title="位置和使用"></a>位置和使用</h3><p>在神经网络中每一次卷积基本都包含了3个步骤：</p><ul><li>conv卷积层</li><li>BatchNorm2d归一化</li><li>ReLU或者其他激活函数</li></ul><p>其中卷积就是直接卷积，大家应该都知道</p><p>BatchNorm2d()函数数学原理如下：</p><img src="/2023/04/22/027-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3%E5%90%8D%E7%A7%B0%E6%80%BB%E7%BB%93/3ebc499e84ea46249245af39d907e612.png" class title="在这里插入图片描述"><p>在pytorch中的函数原型：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">torch.nn.BatchNorm2d(num_features, eps&#x3D;1e-05, momentum&#x3D;0.1, affine&#x3D;True)</span><br></pre></td></tr></table></figure><p>其中的参数是:</p><p>1.<code>num_features</code>：一般输入参数为输入数据的特征通道数，也就是一个 [batch_size, in_channels, height, width]中的in_channels张量，即为其中特征的数量，</p><p>2.<code>eps</code>：分母中添加的一个值，目的是为了计算的稳定性，默认为：1e-5</p><p>3.<code>momentum</code>：一个用于运行过程中均值和方差的一个估计参数（就是一个惯性吧应该）</p><p>4.<code>affine</code>：当设为true时，会给定可以学习的系数矩阵gamma和beta</p><h2 id="Dropout函数"><a href="#Dropout函数" class="headerlink" title="Dropout函数"></a>Dropout函数</h2><h3 id="作用-1"><a href="#作用-1" class="headerlink" title="作用"></a>作用</h3><p>Dropout 能够避免过拟合，我们往往会在全连接层这类参数比较多的层中使用dropout</p><p>在训练包含Dropout层的神经网络中，每个批次的训练数据都是随机选择，实质是训练了多个子神经网络。</p><p>因为在不同的子网络中随机忽略的权重的位置不同，最后在测试的过程中，将这些小的子网络组合起来，类似一种投票的机制来作预测，有点类似于集成学习的感觉。</p><h3 id="位置"><a href="#位置" class="headerlink" title="位置"></a>位置</h3><p>一般就放在全连接层前面，用来随机简化一下全连接层，降低一下GPU的压力</p><h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>在pytorch中有<code>nn.Dropout</code>和<code>nn.functional.dropout</code>两种。</p><p>推荐使用<code>nn.Dropout</code>，因为一般情况下只有训练train时才用dropout，在eval不需要dropout。</p><p>使用<code>nn.Dropout</code>，在调用<code>model.eval()</code>后，模型的Dropout层和批归一化（batchnorm）都关闭，但用<code>nn.functional.dropout</code>，在没有设置training模式下调用<code>model.eval()</code>后不会关闭Dropout。</p><p>这里关闭Dropout等的目的是为了测试我们训练好的网络。</p><p>在eval模式下，Dropout层会让所有的激活单元都通过，而batchnorm层会停止计算和更新mean和var，直接使用在train训练阶段已经学出的mean和var值。</p><h2 id="with-torch-no-grad"><a href="#with-torch-no-grad" class="headerlink" title="with torch.no_grad()"></a>with torch.no_grad()</h2><p>停止掉autograd模块的工作，意思是这个时候就不会计算梯度和进行优化了，也不会储存梯度，一般就是验证和测试的时候用</p><h2 id="model-eval"><a href="#model-eval" class="headerlink" title="model.eval()"></a>model.eval()</h2><ul><li>对于BatchNorm，model.eval()是保证BN层能够用全部训练数据的均值和方差，即测试过程中要保证BN层的均值和方差不变。</li><li>对于Dropout，model.eval()是利用到了所有网络连接，即不进行随机舍弃神经元。</li></ul><h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><p><a href="csdn%E5%8D%9A%E5%AE%A2">https://blog.csdn.net/qq_42346574/article/details/119895908</a>.<br><a href="https://www.csdn.net/">https://www.bilibili.com/video/BV1DM4y1w7J4</a>.</p>]]></content>
     
@@ -34,6 +34,8 @@
     
     
     
+    
+    <category term="神经网络" scheme="https://thanyi.github.io/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/"/>
     
   </entry>
   
