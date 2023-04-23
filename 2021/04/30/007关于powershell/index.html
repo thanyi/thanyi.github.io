@@ -158,8 +158,8 @@
   const init = () => {
     let initData = {
       el: '#twikoo-wrap',
-      envId: 'ethanyi9-5ggn6apd7d4e7804',
-      region: 'ap-shanghai'
+      envId: 'http://47.115.231.216:8080',
+      region: ''
     }
 
     if (false) {
@@ -172,8 +172,8 @@
 
   const getCount = () => {
     twikoo.getCommentsCount({
-      envId: 'ethanyi9-5ggn6apd7d4e7804',
-      region: 'ap-shanghai',
+      envId: 'http://47.115.231.216:8080',
+      region: '',
       urls: [window.location.pathname],
       includeReply: false
     }).then(function (res) {
