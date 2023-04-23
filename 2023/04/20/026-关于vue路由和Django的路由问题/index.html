@@ -190,7 +190,7 @@
   const init = () => {
     let initData = {
       el: '#twikoo-wrap',
-      envId: 'https://47.115.231.216:8080/',
+      envId: 'http://47.115.231.216:8080',
       region: ''
     }
 
@@ -204,7 +204,7 @@
 
   const getCount = () => {
     twikoo.getCommentsCount({
-      envId: 'https://47.115.231.216:8080/',
+      envId: 'http://47.115.231.216:8080',
       region: '',
       urls: [window.location.pathname],
       includeReply: false
