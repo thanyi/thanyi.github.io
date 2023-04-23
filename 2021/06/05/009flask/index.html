@@ -405,7 +405,7 @@ user_list = User.query.order_by(-User.id).all()  对所有的进行排序
   const init = () => {
     let initData = {
       el: '#twikoo-wrap',
-      envId: 'http://47.115.231.216:8080',
+      envId: 'https://blog.ethanyi.xyz/',
       region: ''
     }
 
@@ -419,7 +419,7 @@ user_list = User.query.order_by(-User.id).all()  对所有的进行排序
 
   const getCount = () => {
     twikoo.getCommentsCount({
-      envId: 'http://47.115.231.216:8080',
+      envId: 'https://blog.ethanyi.xyz/',
       region: '',
       urls: [window.location.pathname],
       includeReply: false
