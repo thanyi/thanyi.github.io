@@ -163,7 +163,7 @@
 </li>
 </ul>
 <p>​        注：路径是指C盘或者D盘路径</p>
-<p>​        例如：ssh-keygen -t rsa -C -“<a href="mailto:&#49;&#51;&#49;&#54;&#x35;&#57;&#x34;&#49;&#49;&#x35;&#x40;&#113;&#113;&#x2e;&#99;&#111;&#109;">&#49;&#51;&#49;&#54;&#x35;&#57;&#x34;&#49;&#49;&#x35;&#x40;&#113;&#113;&#x2e;&#99;&#111;&#109;</a>“</p>
+<p>​        例如：ssh-keygen -t rsa -C -“<a href="mailto:&#49;&#51;&#x31;&#x36;&#53;&#57;&#52;&#x31;&#49;&#53;&#64;&#x71;&#x71;&#x2e;&#99;&#x6f;&#x6d;">&#49;&#51;&#x31;&#x36;&#53;&#57;&#52;&#x31;&#49;&#53;&#64;&#x71;&#x71;&#x2e;&#99;&#x6f;&#x6d;</a>“</p>
 <p>​    输入后git bash中会有三次提醒输入操作<br>​            1）是路径确认，直接按回车存默认路径即可<br>​            2）直接回车键，这里我们不使用密码进行登录, 用密码太麻烦;<br>​            3）确认密码,直接回车键</p>
 <p>​    （也就是说三次回车）</p>
 <p>​    之后电脑C盘路径C:\Users\Administrator（电脑名）.ssh 下会生成 id_rsa.pub 文件，将其中内容复制下来</p>
@@ -224,7 +224,7 @@
   const init = () => {
     let initData = {
       el: '#twikoo-wrap',
-      envId: 'http://47.115.231.216:8080',
+      envId: 'https://blog.ethanyi.xyz',
       region: ''
     }
 
@@ -238,7 +238,7 @@
 
   const getCount = () => {
     twikoo.getCommentsCount({
-      envId: 'http://47.115.231.216:8080',
+      envId: 'https://blog.ethanyi.xyz',
       region: '',
       urls: [window.location.pathname],
       includeReply: false
@@ -254,7 +254,7 @@
       init()
       bool && $countDom && setTimeout(getCount,0)
     } else {
-      getScript('https://cdn.jsdelivr.net/npm/twikoo@1.3.0/dist/twikoo.all.min.js').then(()=> {
+      getScript('https://cdn.staticfile.org/twikoo/1.6.4/twikoo.all.min.js').then(()=> {
         init()
         bool && $countDom && setTimeout(getCount,0)
       })

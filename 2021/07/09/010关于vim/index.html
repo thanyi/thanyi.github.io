@@ -147,7 +147,7 @@
   const init = () => {
     let initData = {
       el: '#twikoo-wrap',
-      envId: 'http://47.115.231.216:8080',
+      envId: 'https://blog.ethanyi.xyz',
       region: ''
     }
 
@@ -161,7 +161,7 @@
 
   const getCount = () => {
     twikoo.getCommentsCount({
-      envId: 'http://47.115.231.216:8080',
+      envId: 'https://blog.ethanyi.xyz',
       region: '',
       urls: [window.location.pathname],
       includeReply: false
@@ -177,7 +177,7 @@
       init()
       bool && $countDom && setTimeout(getCount,0)
     } else {
-      getScript('https://cdn.jsdelivr.net/npm/twikoo@1.3.0/dist/twikoo.all.min.js').then(()=> {
+      getScript('https://cdn.staticfile.org/twikoo/1.6.4/twikoo.all.min.js').then(()=> {
         init()
         bool && $countDom && setTimeout(getCount,0)
       })
