@@ -235,6 +235,13 @@
 
   
   <url>
+    <loc>https://thanyi.github.io/tags/%E6%B8%97%E9%80%8F/</loc>
+    <lastmod>2023-10-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://thanyi.github.io/tags/hexo/</loc>
     <lastmod>2023-10-09</lastmod>
     <changefreq>daily</changefreq>
@@ -375,13 +382,6 @@
   </url>
   
   <url>
-    <loc>https://thanyi.github.io/tags/%E6%B8%97%E9%80%8F/</loc>
-    <lastmod>2023-10-09</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://thanyi.github.io/tags/%E5%AD%A6%E4%B9%A0%E7%BB%8F%E9%AA%8C/</loc>
     <lastmod>2023-10-09</lastmod>
     <changefreq>daily</changefreq>
@@ -426,14 +426,14 @@
   </url>
   
   <url>
-    <loc>https://thanyi.github.io/categories/%E6%95%99%E7%A8%8B/powershell/</loc>
+    <loc>https://thanyi.github.io/categories/%E6%95%99%E7%A8%8B/git/</loc>
     <lastmod>2023-10-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://thanyi.github.io/categories/%E6%95%99%E7%A8%8B/git/</loc>
+    <loc>https://thanyi.github.io/categories/%E6%95%99%E7%A8%8B/powershell/</loc>
     <lastmod>2023-10-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -489,6 +489,13 @@
   </url>
   
   <url>
+    <loc>https://thanyi.github.io/categories/%E5%AD%A6%E4%B9%A0/pip/</loc>
+    <lastmod>2023-10-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://thanyi.github.io/categories/%E5%AD%A6%E4%B9%A0/nisp/</loc>
     <lastmod>2023-10-09</lastmod>
     <changefreq>daily</changefreq>
@@ -496,7 +503,7 @@
   </url>
   
   <url>
-    <loc>https://thanyi.github.io/categories/%E5%AD%A6%E4%B9%A0/pip/</loc>
+    <loc>https://thanyi.github.io/categories/%E6%8A%80%E6%9C%AF/</loc>
     <lastmod>2023-10-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -511,13 +518,6 @@
   
   <url>
     <loc>https://thanyi.github.io/categories/ctf/%E5%B0%8F%E7%BB%93/</loc>
-    <lastmod>2023-10-09</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://thanyi.github.io/categories/%E6%8A%80%E6%9C%AF/</loc>
     <lastmod>2023-10-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
