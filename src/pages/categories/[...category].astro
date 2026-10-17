@@ -1,0 +1,40 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Main from "@/components/Main.astro";
+import Footer from "@/components/Footer.astro";
+import Card from "@/components/Card.astro";
+import config from "@/config";
+import migration from "@/data/migration.json";
+import { getSortedPosts } from "@/utils/getSortedPosts";
+
+export function getStaticPaths() {
+  return migration.legacyPages
+    .filter(
+      page =>
+        page.kind === "categories" &&
+        page.category &&
+        !page.path.includes("/page/")
+    )
+    .map(page => ({
+      params: {
+        category: page.path.replace(/^\/categories\//, "").replace(/\/$/, ""),
+      },
+      props: { title: page.title },
+    }));
+}
+const { title } = Astro.props;
+const posts = getSortedPosts(await getCollection("posts")).filter(post =>
+  post.data.categories.includes(title)
+);
+---
+
+<Layout title={`${title} · 分类 | ${config.site.title}`}>
+  <Header />
+  <Main pageTitle={title} pageDesc={`这个分类下共有 ${posts.length} 篇文章。`}>
+    <a class="text-accent text-sm" href="/categories/">← 全部分类</a>
+    <ul>{posts.map(post => <Card {...post} />)}</ul>
+  </Main>
+  <Footer />
+</Layout>
