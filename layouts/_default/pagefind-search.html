@@ -1,0 +1,15 @@
+{{- define "main" }}
+
+<header class="page-header">
+  <h1>{{ .Title }}</h1>
+  {{- with .Description }}
+  <div class="post-description">{{ . }}</div>
+  {{- end }}
+</header>
+
+<div id="search" class="search-page"></div>
+<p id="search-fallback" class="search-fallback" hidden>
+  搜索索引尚未生成，请先运行 <code>npm run build</code> 后再预览。
+</p>
+
+{{- end }}{{/* end main */}}

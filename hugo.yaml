@@ -1,0 +1,163 @@
+baseURL: "https://thanyi.github.io/"
+locale: "zh-cn"
+defaultContentLanguage: "zh-cn"
+title: "Ethanyi's Blog"
+theme: "PaperMod"
+
+enableRobotsTXT: true
+enableEmoji: false
+buildDrafts: false
+buildFuture: false
+buildExpired: false
+
+# Keep the existing repository conventions: public/ holds source assets,
+# dist/ is the generated site (the GitHub Actions workflow uploads dist/).
+publishDir: "dist"
+staticDir:
+  - "static"
+  - "public"
+
+timeZone: "Asia/Shanghai"
+
+pagination:
+  pagerSize: 8
+
+taxonomies:
+  tag: tags
+  category: categories
+
+markup:
+  goldmark:
+    extensions:
+      typographer: false
+    renderer:
+      unsafe: true
+    parser:
+      attribute:
+        block: true
+  tableOfContents:
+    startLevel: 2
+    endLevel: 4
+    ordered: false
+  highlight:
+    noClasses: false
+    lineNos: false
+    codeFences: true
+    guessSyntax: true
+
+outputs:
+  home:
+    - HTML
+    - RSS
+    - Atom
+
+mediaTypes:
+  application/atom+xml:
+    suffixes:
+      - "xml"
+
+outputFormats:
+  RSS:
+    mediaType: "application/rss+xml"
+    baseName: "rss"
+    rel: "alternate"
+  Atom:
+    mediaType: "application/atom+xml"
+    baseName: "atom"
+    isPlainText: false
+    rel: "alternate"
+
+sitemap:
+  changefreq: "weekly"
+  priority: 0.5
+
+params:
+  env: production
+  title: "Ethanyi's Blog"
+  description: "记录网络安全、编程实践与学习过程中的思考。"
+  author: "Ethanyi"
+  keywords:
+    - 网络安全
+    - 编程
+    - 学习笔记
+    - Ethanyi
+  DateFormat: "2006 年 1 月 2 日"
+  defaultTheme: "auto"
+  disableThemeToggle: false
+  disableSearch: false
+  disableScrollToTop: false
+  disableAnchoredHeadings: true
+  disableSpecial1stPost: true
+  ShowTags: true
+
+  ShowReadingTime: true
+  ShowWordCount: false
+  ShowShareButtons: false
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  ShowRssButtonInSectionTermList: true
+  ShowToc: true
+  UseHugoToc: true
+  TocOpen: false
+
+  hideSummary: false
+  hidemeta: false
+  comments: false
+  showtoc: true
+
+  mainSections:
+    - posts
+
+  googleSiteVerification: ""
+  images:
+    - "og.jpeg"
+
+  assets:
+    theme_color: "#faf9f6"
+    favicon: "img/ethanyi-icon.png"
+    favicon16x16: "img/ethanyi-icon.png"
+    favicon32x32: "img/ethanyi-icon.png"
+    apple_touch_icon: "img/ethanyi-apple-touch-icon.png"
+    safari_pinned_tab: "img/ethanyi-icon.svg"
+
+  label:
+    text: "Ethanyi's Blog"
+
+  homeInfoParams:
+    Title: "记录技术，也记录思考。"
+    Content: "你好，我是 Ethanyi。这里收录了网络安全、编程实践与学习路上的笔记，把遇到的问题和找到的答案，慢慢写下来。"
+
+  profileMode:
+    enabled: false
+
+  socialIcons:
+    - name: github
+      url: "https://github.com/thanyi"
+
+  cover:
+    hiddenInList: true
+    hiddenInSingle: true
+
+menu:
+  main:
+    - identifier: posts
+      name: "文章"
+      url: "/posts/"
+      weight: 10
+    - identifier: tags
+      name: "标签"
+      url: "/tags/"
+      weight: 20
+    - identifier: archives
+      name: "归档"
+      url: "/archives/"
+      weight: 30
+    - identifier: about
+      name: "关于"
+      url: "/about/"
+      weight: 40
+    - identifier: search
+      name: "搜索"
+      url: "/search/"
+      weight: 50

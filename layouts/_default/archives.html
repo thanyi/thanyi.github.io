@@ -1,0 +1,29 @@
+{{- define "main" }}
+
+{{- $posts := where site.RegularPages "Section" "posts" -}}
+{{- $posts = $posts.ByDate.Reverse -}}
+
+<header class="page-header">
+  <h1>{{ .Title }}</h1>
+  {{- with .Description }}
+  <div class="post-description">{{ . }}</div>
+  {{- else }}
+  {{- with .Summary }}
+  <div class="post-description">{{ . }}</div>
+  {{- end }}
+  {{- end }}
+</header>
+
+<div class="archive-list">
+  {{- range $posts.GroupByDate "2006" }}
+  <h2 class="archive-year">{{ .Key }}</h2>
+  {{- range .Pages }}
+    <article class="archive-entry">
+    <a class="archive-entry-title" href="{{ .Permalink }}">{{ .Title }}</a>
+    <time class="archive-entry-date" datetime="{{ time.Format "2006-01-02" (time.In "Asia/Shanghai" .Date) }}">{{ time.Format "01-02" (time.In "Asia/Shanghai" .Date) }}</time>
+  </article>
+  {{- end }}
+  {{- end }}
+</div>
+
+{{- end }}{{/* end main */}}

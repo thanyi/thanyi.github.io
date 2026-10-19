@@ -11,7 +11,10 @@ from urllib.parse import unquote, urljoin, urlsplit
 
 root = Path(__file__).resolve().parents[1]
 dist = root / "dist"
-report = json.loads((root / "src/data/migration.json").read_text())
+report_path = root / "data/migration.json"
+if not report_path.exists():
+    report_path = root / "src/data/migration.json"
+report = json.loads(report_path.read_text())
 errors = []
 
 
@@ -25,6 +28,7 @@ class Page(HTMLParser):
         self.references = []
         self.body_text = []
         self.code = ""
+        self.last_code = ""
 
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
@@ -64,16 +68,42 @@ def output_for(path):
     return direct / "index.html"
 
 
+def strip_heading_attrs(markdown):
+    """Undo the {#legacy-anchor} attributes added by the Hugo migration."""
+    lines = markdown.splitlines(keepends=True)
+    in_fence = False
+    fence_char = ""
+    output = []
+    for line in lines:
+        fence = re.match(r"^\s*(`{3,}|~{3,})", line)
+        if fence:
+            if not in_fence:
+                in_fence = True
+                fence_char = fence.group(1)[0]
+            elif fence.group(1)[0] == fence_char:
+                in_fence = False
+            output.append(line)
+            continue
+        if not in_fence:
+            line = re.sub(
+                r"^(#{1,6}[ \t]+.*?)[ \t]+\{#[^}]+\}[ \t]*(\r?\n)?$",
+                lambda match: match.group(1) + (match.group(2) or ""),
+                line,
+            )
+        output.append(line)
+    return "".join(output)
+
+
 assert len(report["posts"]) == 27, "Expected all 27 original posts"
 code_count = 0
 sources = {}
-for source in list((root / "src/content/posts").rglob("*.md")) + list((root / "src/content/posts").rglob("*.mdx")):
+for source in list((root / "content/posts").rglob("*.md")) + list((root / "content/posts").rglob("*.mdx")):
     match = re.match(r"^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)", source.read_text())
     if not match:
         continue
-    permalink = re.search(r"(?m)^permalink:\s*(['\"]?)([^\n]+?)\1\s*$", match[1])
-    if permalink:
-        sources[permalink[2]] = (source, source.read_text()[match.end():])
+    url = re.search(r"(?m)^url:\s*(['\"]?)([^\n]+?)\1\s*$", match[1])
+    if url:
+        sources[url[2]] = (source, source.read_text()[match.end():])
 for post in report["posts"]:
     output = output_for(post["url"])
     if not output.is_file():
@@ -91,6 +121,7 @@ for post in report["posts"]:
         errors.append(f"Missing source for historical permalink: {post['url']}")
         continue
     source, markdown_body = source_entry
+    markdown_body = strip_heading_attrs(markdown_body)
     expected_body = post.get("markdownBodySha256")
     unchanged = hashlib.sha256(markdown_body.encode()).hexdigest() == expected_body if expected_body else hashlib.sha256(source.read_bytes()).hexdigest() == post["sourceSha256"]
     if not unchanged:
@@ -99,7 +130,7 @@ for post in report["posts"]:
     if digest != post["bodySha256"]:
         errors.append(f"Article text changed during rendering: {post['url']}")
     for heading in post["headings"]:
-        if heading["slug"] not in page.ids:
+        if heading["slug"] and heading["slug"] not in page.ids:
             errors.append(f"Missing original heading: {post['url']}#{heading['slug']}")
     if len(page.codes) != len(post["codeBlocks"]):
         errors.append(f"Code count changed: {post['url']}: {len(page.codes)} != {len(post['codeBlocks'])}")

@@ -9,7 +9,7 @@ import {
 import { isAbsolute, join, relative, resolve, sep } from "node:path";
 import { parseDocument, stringify } from "yaml";
 
-export const POSTS = "src/content/posts";
+export const POSTS = "content/posts";
 
 export function readPost(file) {
   const original = readFileSync(file, "utf8");
@@ -74,13 +74,13 @@ export function createPost({ root, title, slug, now = new Date() }) {
     const fallback = `/posts/${relative(join(root, POSTS), existing)
       .replace(/\.mdx?$/, "")
       .toLowerCase()}/`;
-    if ((data.permalink ?? fallback) === permalink)
+    if ((data.url ?? fallback) === permalink)
       throw new Error(`网址已经被使用：${permalink}，请换一个 --slug。`);
   }
   const content = stringify({
     title: title.trim(),
-    permalink,
-    pubDatetime: now.toISOString(),
+    url: permalink,
+    date: now.toISOString(),
     description: "",
     tags: [],
     categories: [],
@@ -108,10 +108,7 @@ function git(root, args) {
 }
 
 function authoringPath(path) {
-  return (
-    /^src\/content\/(posts|pages)\/.*\.mdx?$/.test(path) ||
-    path.startsWith("public/")
-  );
+  return /^content\/.*\.mdx?$/.test(path) || path.startsWith("public/");
 }
 
 function changes(root) {
@@ -186,7 +183,7 @@ export function summaryFrom(body) {
 
 function relatedAsset(path, post) {
   const url = `/${path.replace(/^public\//, "")}`;
-  const slug = post.data.permalink?.replace(/\/$/, "").split("/").at(-1);
+  const slug = post.data.url?.replace(/\/$/, "").split("/").at(-1);
   if (slug && url.startsWith(`/images/${decodeURIComponent(slug)}/`))
     return true;
   const references = [
@@ -291,9 +288,9 @@ export function publishContent({
       titles.push(post.data.title || path);
       if (post.data.draft) {
         post.document.set("draft", false);
-        post.document.set("pubDatetime", now.toISOString());
+        post.document.set("date", now.toISOString());
       } else {
-        post.document.set("modDatetime", now.toISOString());
+        post.document.set("lastmod", now.toISOString());
       }
       if (!String(post.data.description ?? "").trim())
         post.document.set("description", summaryFrom(post.body));

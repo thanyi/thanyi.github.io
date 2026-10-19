@@ -57,11 +57,11 @@ test("new creates a shallow draft and stable URL, preserving titles literally", 
   const { root } = fixture(t);
   const title = '学习 "Python" $(touch marker)';
   const created = createPost({ root, title, slug: "python-note", now });
-  assert.equal(dirname(created.file), join(root, "src/content/posts"));
+  assert.equal(dirname(created.file), join(root, "content/posts"));
   const post = readPost(created.file);
   assert.equal(post.data.title, title);
   assert.equal(post.data.draft, true);
-  assert.equal(post.data.permalink, "/posts/python-note/");
+  assert.equal(post.data.url, "/posts/python-note/");
   assert.equal(existsSync(created.imageDirectory), true);
   assert.equal(existsSync(join(root, "marker")), false);
   assert.throws(() => createPost({ root, title, now }), /已经存在/);
@@ -89,7 +89,7 @@ test("publish fills metadata and pushes real Git content without unrelated chang
   assert.equal(builds, 1);
   assert.equal(result.pushed, true);
   const post = readPost(article.file);
-  assert.equal(post.data.pubDatetime, now.toISOString());
+  assert.equal(post.data.date, now.toISOString());
   assert.ok(post.data.description.includes("学到的内容"));
   assert.ok(!post.data.description.includes("]("));
   assert.equal(git(remote, "show", "main:README.md"), "Initial readme");
@@ -179,7 +179,7 @@ test("updating a published article keeps its publication date and custom summary
   const article = draft(root);
   publishContent(options(root));
   const first = readPost(article.file);
-  const publishedAt = first.data.pubDatetime;
+  const publishedAt = first.data.date;
   first.document.set("description", "我手工写的摘要");
   first.body += "\n这次补充的新内容。\n";
   writeFileSync(
@@ -189,8 +189,8 @@ test("updating a published article keeps its publication date and custom summary
   const later = new Date("2026-10-20T05:00:00.000Z");
   publishContent({ ...options(root), now: later });
   const updated = readPost(article.file);
-  assert.equal(updated.data.pubDatetime, publishedAt);
-  assert.equal(updated.data.modDatetime, later.toISOString());
+  assert.equal(updated.data.date, publishedAt);
+  assert.equal(updated.data.lastmod, later.toISOString());
   assert.equal(updated.data.description, "我手工写的摘要");
 });
 

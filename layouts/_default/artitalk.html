@@ -1,0 +1,77 @@
+{{- define "main" }}
+
+<header class="page-header">
+  <h1>{{ .Title }}</h1>
+  {{- with .Description }}
+  <div class="post-description">{{ . }}</div>
+  {{- end }}
+</header>
+
+<p id="artitalk-status" class="artitalk-status" role="status">正在加载…</p>
+<noscript>开启 JavaScript 后可以查看说说。</noscript>
+<div
+  id="artitalk_main"
+  data-app-id="{{ site.Data.artitalk.appId }}"
+  data-app-key="{{ site.Data.artitalk.appKey }}"
+></div>
+
+<script>
+  (function () {
+    function showUnavailable() {
+      var status = document.querySelector("#artitalk-status");
+      var target = document.querySelector("#artitalk_main");
+      if (!status || !target) return;
+      status.hidden = false;
+      status.textContent = "说说暂时无法加载，请稍后再试。";
+      target.hidden = true;
+    }
+
+    // The original backend is archived. Surface its async error until the
+    // owner restores the application, rather than leaving an empty widget.
+    window.addEventListener("unhandledrejection", function (event) {
+      if (
+        document.querySelector("#artitalk_main") &&
+        String((event.reason && event.reason.message) || event.reason).includes(
+          "The app is archived"
+        )
+      ) {
+        event.preventDefault();
+        showUnavailable();
+      }
+    });
+
+    async function loadMoments() {
+      var target = document.querySelector("#artitalk_main");
+      var status = document.querySelector("#artitalk-status");
+      if (!target || !status || target.dataset.loaded) return;
+      target.dataset.loaded = "true";
+      try {
+        if (!window.Artitalk) {
+          var script = document.createElement("script");
+          script.src = "/vendor/artitalk-3.3.4.js";
+          await new Promise(function (resolve, reject) {
+            script.onload = resolve;
+            script.onerror = reject;
+            document.head.appendChild(script);
+          });
+        }
+        if (!window.Artitalk) throw new Error("Artitalk did not load");
+        new window.Artitalk({
+          appId: target.dataset.appId,
+          appKey: target.dataset.appKey
+        });
+        status.hidden = true;
+      } catch (error) {
+        showUnavailable();
+      }
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", loadMoments);
+    } else {
+      loadMoments();
+    }
+  })();
+</script>
+
+{{- end }}{{/* end main */}}

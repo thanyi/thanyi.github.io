@@ -1,0 +1,12 @@
+{{- define "main" }}
+
+<header class="page-header">
+  <h1>404</h1>
+  <div class="post-description">你访问的页面不存在，可能已经被移动或删除。</div>
+</header>
+
+<div class="post-content">
+  <p><a href="{{ "/" | relURL }}">返回首页</a> · <a href="{{ "/posts/" | relURL }}">浏览全部文章</a> · <a href="{{ "/search/" | relURL }}">搜索</a></p>
+</div>
+
+{{- end }}{{/* end main */}}

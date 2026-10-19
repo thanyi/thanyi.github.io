@@ -1,9 +1,10 @@
 # build output
 dist/
 .preview/
+.hugo_build.lock
 
-# generated types
-.astro/
+# generated Hugo resources
+resources/_gen/
 
 # dependencies
 node_modules/

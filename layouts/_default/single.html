@@ -1,0 +1,86 @@
+{{- define "main" }}
+
+{{- $hasToc := and (.Param "ShowToc") (strings.Contains .TableOfContents "<ul>") -}}
+{{- $toc := .TableOfContents -}}
+{{- $tocInline := replace $toc "id=\"TableOfContents\"" "id=\"TableOfContentsInline\"" -}}
+
+<article class="post-single">
+  <header class="post-header">
+    {{- if (.Param "ShowBreadCrumbs") }}
+    <nav class="breadcrumbs" aria-label="面包屑">
+      <a href="{{ "/" | relURL }}">首页</a>
+      {{- if eq .Section "posts" }}
+      <span aria-hidden="true">›</span><a href="{{ "/posts/" | relURL }}">文章</a>
+      {{- end }}
+      <span aria-hidden="true">›</span><span>{{ .Title }}</span>
+    </nav>
+    {{- end }}
+    <h1 class="post-title entry-hint-parent" data-pagefind-meta="title">
+      {{ .Title }}
+      {{- if .Draft }}
+      <span class="entry-hint" title="草稿">草稿</span>
+      {{- end }}
+    </h1>
+    {{- with .Description }}
+    <div class="post-description">{{ . }}</div>
+    {{- end }}
+    {{- if not (.Param "hideMeta") }}
+    <div class="post-meta">
+      {{- partial "post_meta.html" . -}}
+      <span class="meta-sep" aria-hidden="true">·</span>
+      <span
+        id="busuanzi_container_page_pv"
+        data-visit-count
+        data-pagefind-ignore
+        aria-busy="true"
+        title="文章被打开的次数，重复访问会累计"
+      >
+        阅读 <span id="busuanzi_value_page_pv" class="tabular-nums">—</span> 次
+      </span>
+    </div>
+    {{- end }}
+  </header>
+
+  <div class="post-layout{{ if $hasToc }} has-toc{{ end }}">
+    <div class="post-main">
+      {{- if $hasToc }}
+      <details class="toc-inline" data-pagefind-ignore>
+        <summary>文章目录</summary>
+        <div class="inner">{{ $tocInline | safeHTML }}</div>
+      </details>
+      {{- end }}
+      {{- if .Content }}
+      <article id="article" class="post-content md-content" data-pagefind-body>
+        {{ .Content }}
+      </article>
+      {{- end }}
+    </div>
+
+    {{- if $hasToc }}
+    <aside class="toc-sidebar" aria-label="文章目录" data-pagefind-ignore>
+      <div class="toc-sidebar-title">文章目录</div>
+      <div class="inner">{{ $toc | safeHTML }}</div>
+    </aside>
+    {{- end }}
+  </div>
+
+  {{- if eq .Section "posts" }}
+  <footer class="post-footer">
+    {{- if (.Param "ShowTags") }}
+    <ul class="post-tags">
+      {{- range ($.GetTerms "tags") }}
+      <li><a href="{{ .Permalink }}">{{ .LinkTitle }}</a></li>
+      {{- end }}
+    </ul>
+    {{- end }}
+    {{- if (.Param "ShowPostNavLinks") }}
+    {{- partial "post_nav_links.html" . }}
+    {{- end }}
+    {{- if (and site.Params.ShowShareButtons (ne .Params.disableShare true)) }}
+    {{- partial "share_icons.html" . -}}
+    {{- end }}
+  </footer>
+  {{- end }}
+</article>
+
+{{- end }}{{/* end main */}}
