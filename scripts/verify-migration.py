@@ -66,6 +66,14 @@ def output_for(path):
 
 assert len(report["posts"]) == 27, "Expected all 27 original posts"
 code_count = 0
+sources = {}
+for source in list((root / "src/content/posts").rglob("*.md")) + list((root / "src/content/posts").rglob("*.mdx")):
+    match = re.match(r"^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)", source.read_text())
+    if not match:
+        continue
+    permalink = re.search(r"(?m)^permalink:\s*(['\"]?)([^\n]+?)\1\s*$", match[1])
+    if permalink:
+        sources[permalink[2]] = (source, source.read_text()[match.end():])
 for post in report["posts"]:
     output = output_for(post["url"])
     if not output.is_file():
@@ -77,7 +85,15 @@ for post in report["posts"]:
         errors.append(f"Empty article: {post['url']}")
     # Deliberate future edits to a recovered Markdown file are allowed. Compare
     # the original snapshot only while the source is still the recovered version.
-    if hashlib.sha256((root / post["file"]).read_bytes()).hexdigest() != post["sourceSha256"]:
+    # Match by permalink, so renaming an article never requires editing migration data.
+    source_entry = sources.get(post["url"])
+    if source_entry is None:
+        errors.append(f"Missing source for historical permalink: {post['url']}")
+        continue
+    source, markdown_body = source_entry
+    expected_body = post.get("markdownBodySha256")
+    unchanged = hashlib.sha256(markdown_body.encode()).hexdigest() == expected_body if expected_body else hashlib.sha256(source.read_bytes()).hexdigest() == post["sourceSha256"]
+    if not unchanged:
         continue
     digest = hashlib.sha256(re.sub(r"\s+", "", "".join(page.body_text)).encode()).hexdigest()
     if digest != post["bodySha256"]:

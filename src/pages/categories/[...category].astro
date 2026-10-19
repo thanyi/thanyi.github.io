@@ -6,23 +6,17 @@ import Main from "@/components/Main.astro";
 import Footer from "@/components/Footer.astro";
 import Card from "@/components/Card.astro";
 import config from "@/config";
-import migration from "@/data/migration.json";
+import { getCategories } from "@/utils/getCategories";
 import { getSortedPosts } from "@/utils/getSortedPosts";
 
-export function getStaticPaths() {
-  return migration.legacyPages
-    .filter(
-      page =>
-        page.kind === "categories" &&
-        page.category &&
-        !page.path.includes("/page/")
-    )
-    .map(page => ({
-      params: {
-        category: page.path.replace(/^\/categories\//, "").replace(/\/$/, ""),
-      },
-      props: { title: page.title },
-    }));
+export async function getStaticPaths() {
+  const posts = getSortedPosts(await getCollection("posts"));
+  return getCategories(posts).map(category => ({
+    params: {
+      category: category.path.replace(/^\/categories\//, "").replace(/\/$/, ""),
+    },
+    props: { title: category.title },
+  }));
 }
 const { title } = Astro.props;
 const posts = getSortedPosts(await getCollection("posts")).filter(post =>

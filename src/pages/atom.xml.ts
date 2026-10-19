@@ -16,8 +16,7 @@ export async function GET() {
   ).toISOString();
   const entries = posts
     .map(post => {
-      const url = new URL(getPostUrl(post.id, post.filePath), config.site.url)
-        .href;
+      const url = new URL(getPostUrl(post), config.site.url).href;
       return `<entry><id>${xml(url)}</id><title>${xml(post.data.title)}</title><link href="${xml(url)}"/><published>${post.data.pubDatetime.toISOString()}</published><updated>${(post.data.modDatetime ?? post.data.pubDatetime).toISOString()}</updated><summary>${xml(post.data.description)}</summary></entry>`;
     })
     .join("");

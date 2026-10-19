@@ -118,14 +118,15 @@ def recover(source, target):
         if cache.exists():
             for remote, local in json.loads(cache.read_text())["cached"].items():
                 body = body.replace(remote, local)
-        frontmatter = [f"title: {quoted(title)}", f"pubDatetime: {published}"]
+        frontmatter = [f"title: {quoted(title)}", f"permalink: {quoted(route)}", f"pubDatetime: {published}"]
         if modified:
             frontmatter.append(f"modDatetime: {modified['datetime']}")
-        frontmatter.extend([f"description: {quoted(summary)}", f"tags: {quoted(tags)}", f"categories: {quoted(categories)}", f"legacyHeadings: {quoted(headings)}"])
-        output = posts_dir / path.parent.relative_to(source).with_suffix(".md")
+        frontmatter.extend([f"description: {quoted(summary)}", f"tags: {quoted(tags)}", f"categories: {quoted(categories)}"])
+        filename = re.sub(r'[<>:"/\\|?*\x00-\x1f]', "-", title).strip().strip(".") + ".md"
+        output = posts_dir / filename
         output.parent.mkdir(parents=True, exist_ok=True)
         output.write_text("---\n" + "\n".join(frontmatter) + "\n---\n\n" + body + "\n")
-        report["posts"].append({"title": title, "url": route, "file": str(output.relative_to(target)), "sourceSha256": hashlib.sha256(output.read_bytes()).hexdigest(), "bodySha256": body_digest, "codeBlocks": code_blocks, "imageCount": image_count, "headings": headings})
+        report["posts"].append({"title": title, "url": route, "file": str(output.relative_to(target)), "sourceSha256": hashlib.sha256(output.read_bytes()).hexdigest(), "bodySha256": body_digest, "markdownBodySha256": hashlib.sha256(output.read_text().split("---", 2)[2].removeprefix("\n").encode()).hexdigest(), "codeBlocks": code_blocks, "imageCount": image_count, "headings": headings})
 
     # Preserve taxonomy and archive routes so existing inbound links still resolve.
     for directory in ["tags", "categories", "archives", "page"]:

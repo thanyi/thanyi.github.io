@@ -20,9 +20,16 @@ import config from "@/config";
 export async function getStaticPaths() {
   const posts = await getCollection("posts");
   const sortedPosts = getSortedPosts(posts);
+  const routes = new Set<string>();
+  for (const post of sortedPosts) {
+    const path = getPostSlug(post);
+    if (routes.has(path))
+      throw new Error(`文章网址重复，请修改 permalink：/${path}/`);
+    routes.add(path);
+  }
 
   return sortedPosts.map((post, index) => ({
-    params: { slug: getPostSlug(post.id, post.filePath) },
+    params: { slug: getPostSlug(post) },
     props: {
       post,
       // sortedPosts is newest-first, so "older" (prev) is a higher index
@@ -33,6 +40,7 @@ export async function getStaticPaths() {
               id: sortedPosts[index + 1].id,
               title: sortedPosts[index + 1].data.title,
               filePath: sortedPosts[index + 1].filePath,
+              data: sortedPosts[index + 1].data,
             }
           : null,
       nextPost:
@@ -41,6 +49,7 @@ export async function getStaticPaths() {
               id: sortedPosts[index - 1].id,
               title: sortedPosts[index - 1].data.title,
               filePath: sortedPosts[index - 1].filePath,
+              data: sortedPosts[index - 1].data,
             }
           : null,
     },
@@ -51,6 +60,7 @@ type AdjacentPost = {
   id: string;
   title: string;
   filePath: string | undefined;
+  data: { permalink?: string };
 } | null;
 
 type Props = {
@@ -88,10 +98,7 @@ if (typeof initOgImage === "string") {
 }
 
 if (!ogImageUrl && config.features.dynamicOgImage) {
-  const postUrl = getPostUrl(post.id, post.filePath, locale).replace(
-    /\/+$/,
-    ""
-  );
+  const postUrl = getPostUrl(post, locale).replace(/\/+$/, "");
   ogImageUrl = `${postUrl}/index.png`;
 }
 
@@ -110,6 +117,13 @@ const ogImage = ogImageUrl
 >
   <Header />
 
+  {
+    post.data.draft && (
+      <p class="app-layout text-accent mt-6 text-sm" data-pagefind-ignore>
+        草稿 · 仅本地预览，发布后才会出现在网站上。
+      </p>
+    )
+  }
   <BackButton />
 
   <main

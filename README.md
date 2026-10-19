@@ -2,55 +2,124 @@
 
 个人技术博客，使用 **Astro + AstroPaper**，部署到 GitHub Pages。
 
-## 本地运行
+## 日常写文章：两条命令
 
-需要 Node.js **24.16.0 或更新版本**（版本记录在 `.nvmrc`）。
+在仓库目录打开终端，新建文章：
 
 ```sh
-nvm use
+npm run new -- "我的新文章"
+```
+
+会自动生成 `src/content/posts/我的新文章.md`，并创建配图目录。用你喜欢的编辑器写好正文，然后发布：
+
+```sh
+npm run publish
+```
+
+发布命令会自动完成：补充摘要、处理日期、将改动的草稿转为正式文章、构建与校验、Git 提交、推送到 `main`。之后 GitHub Actions 会更新网站。
+
+**不带参数会发布所有改动的文章（包括草稿）、关于/友链和图片。** 如果同时写着多篇草稿，只发布其中一篇：
+
+```sh
+npm run publish -- "我的新文章"
+```
+
+只查看本次会提交哪些文件：
+
+```sh
+npm run publish -- --dry-run
+```
+
+检查失败时保留你写的正文，并恢复原来的草稿状态；已提交但推送失败时，重新运行 `npm run publish` 即可重试。发布命令会先同步可快进的远程更新，并保留其他类型的本地修改。
+
+## 目录和图片
+
+文章全部平铺，不再按年/月/日建立目录：
+
+```text
+src/content/posts/
+  正则表达式的基本使用.md
+  关于hexo的博客搭建.md
+  我的新文章.md
+
+public/images/
+  我的新文章/
+    配图.png
+```
+
+正文插入图片：
+
+```markdown
+![图片说明](/images/我的新文章/配图.png)
+```
+
+新建命令会输出实际图片目录和文章网址。希望网址使用英文时可以指定：
+
+```sh
+npm run new -- "我的 Python 笔记" --slug python-notes
+```
+
+此时文章文件仍以中文标题命名，配图放在 `public/images/python-notes/`，网址为 `/posts/python-notes/`。
+
+## 修改旧文章
+
+在 `src/content/posts/` 直接打开对应文章修改，完成后同样运行 `npm run publish`。更新日期会自动填写，原来的发布日期会保留。
+
+每篇文章的 `permalink` 固定网址，**重命名或移动文件时保留它即可**。旧文章仍使用原来的日期网址，外链和阅读量统计地址继续有效。标题锚点等迁移记录保存在 `src/data/migration.json`，日常写作不需要修改这个文件。
+
+还可以直接在 [GitHub 文章目录](https://github.com/thanyi/thanyi.github.io/tree/main/src/content/posts) 编辑现有文件，提交到 `main` 即可触发自动发布。
+
+## 本地预览与首次准备
+
+需要 Node.js **24.16.0 或更新版本**（记录在 `.nvmrc`）。首次使用先安装依赖：
+
+```sh
 npm ci
+```
+
+需要边写边看时运行：
+
+```sh
 npm run dev
 ```
 
-打开终端显示的本地地址，默认是 `http://localhost:4321`。
+打开 `http://localhost:4321`。**本地开发可以预览草稿**，正式构建会排除草稿。需要预览完整的搜索结果时，先运行 `npm run build`，再运行 `npm run preview`。
 
-```sh
-npm run build              # 类型检查、生成静态站点和中文全文搜索索引
-npm run verify:migration   # 检查正文一致性、旧链接、代码块、图片与订阅源
-npm run preview            # 预览 dist 中的构建结果，包含全文搜索
+使用 nvm 的话，可以通过 `nvm install` 安装 `.nvmrc` 指定的版本，再执行 `nvm use`。
+
+## 文章配置
+
+新建命令会自动填写下面的配置，你只需要写正文。标签、分类和摘要都可以按需修改：
+
+```yaml
+title: 我的新文章
+permalink: /posts/我的新文章/
+pubDatetime: 2026-10-19T00:00:00+08:00
+description: ""
+tags: []
+categories: []
+draft: true
 ```
 
-首次使用搜索前需要运行一次 `npm run build`。开发服务器的搜索使用最近一次构建的索引。
+- 首次发布草稿时自动填写实际发布日期；修改正式文章时自动填写更新日期。
+- 摘要留空时，发布命令自动从正文生成；填写了摘要就使用你写的内容。
+- 标签和分类填写后会自动生成相应页面，无需再维护分类清单。
+- `permalink` 用于保持网址稳定，`draft` 用于区分草稿和正式文章。
 
-## 写文章与修改外观
+## 站点设置与维护命令
 
 - 站点信息、社交链接和每页文章数：`astro-paper.config.ts`
 - 首页介绍：`src/pages/index.astro`
-- 文章：`src/content/posts/`
 - 关于与友链：`src/content/pages/`
 - 配色和字体：`src/styles/theme.css`
 - 中文排版：`src/styles/typography.css`
 - 中文界面：`src/i18n/lang/zh-CN.ts`
-- 图片等静态资源：`public/`，引用时省略 `public` 前缀。
 
-新文章可以放在 `src/content/posts/my-note.md`，网址为 `/posts/my-note/`：
-
-```markdown
----
-title: "文章标题"
-pubDatetime: 2026-10-17T09:00:00+08:00
-description: "一句话摘要。"
-tags: ["技术"]
-categories: ["学习"]
-draft: false
----
-
-正文从这里开始。
+```sh
+npm test                   # 写作与发布命令的回归检查
+npm run build              # 类型检查、静态构建和搜索索引
+npm run verify:migration   # 检查历史正文、网址、图片及订阅源
 ```
-
-恢复文章沿用 `src/content/posts/年/月/日/原名称.md`，网址继续使用原来的 `/年/月/日/原名称/`。保留日期目录和文件名即可保留网址。其 `legacyHeadings` 字段记录旧标题锚点；如果重写了旧文章的标题结构，可以同步修改该字段，或删除它以使用自动生成的目录。新文章无需这个字段。
-
-已有分类与旧的层级分类网址均已保留。分类页面按文章 `categories` 字段筛选；向 `src/data/migration.json` 中的 `legacyPages` 添加分类可以创建对应页面。
 
 ## GitHub Pages
 
@@ -78,7 +147,7 @@ draft: false
 - 旧标题锚点、友链、分类、归档及分页入口。
 - `/atom.xml` 继续提供 Atom，另提供 `/rss.xml`；`/sitemap.xml` 仍为有效 XML。
 
-验收会对仍保持恢复版本的文章比对正文与代码；后续有意修改 Markdown 不会被旧内容校验阻止，新文章也可以正常加入订阅源。详细清单见 `src/data/migration.json` 和 `src/data/image-cache.json`。只有一张图片原本指向作者电脑的 Typora 路径，无法从仓库恢复，现显示“图片暂缺”。一篇笔记中两个目标错误的参考链接根据可见网址修复。
+验收会对正文仍保持恢复版本的文章比对渲染结果与代码；文件重命名或修改文章配置不影响核验，有意修改正文后跳过该文章的原文校验。新文章也可以正常加入订阅源。详细清单见 `src/data/migration.json` 和 `src/data/image-cache.json`。只有一张图片原本指向作者电脑的 Typora 路径，无法从仓库恢复，现显示“图片暂缺”。一篇笔记中两个目标错误的参考链接根据可见网址修复。
 
 说说继续使用原来的 Artitalk 公共应用配置（`src/data/artitalk.json`）；记录保存在原 LeanCloud 服务中，不在这个 Git 仓库里。2026-10-17 验证时，该应用返回 “The app is archived”。需要原账号在 LeanCloud 控制台恢复应用后，才能重新读取说说；页面已保留兼容入口，并在服务不可用时显示提示。Artitalk 使用固定版本的本地脚本。
 

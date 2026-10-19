@@ -15,7 +15,7 @@ export async function GET() {
     "/archives/",
     "/about/",
     "/link/",
-    ...posts.map(post => getPostUrl(post.id, post.filePath)),
+    ...posts.map(post => getPostUrl(post)),
   ];
   const urls = paths
     .map(
