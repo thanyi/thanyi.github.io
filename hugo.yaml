@@ -2,6 +2,7 @@ baseURL: "https://thanyi.github.io/"
 locale: "zh-cn"
 defaultContentLanguage: "zh-cn"
 title: "Ethanyi's Blog"
+copyright: "© 2021–2026 Ethanyi"
 theme: "PaperMod"
 
 enableRobotsTXT: true
@@ -86,11 +87,12 @@ params:
   disableThemeToggle: false
   disableSearch: false
   disableScrollToTop: false
-  disableAnchoredHeadings: true
+  disableAnchoredHeadings: false
   disableSpecial1stPost: true
   ShowTags: true
 
   ShowReadingTime: true
+  hideAuthor: true
   ShowWordCount: false
   ShowShareButtons: false
   ShowPostNavLinks: true
@@ -104,17 +106,17 @@ params:
   hideSummary: false
   hidemeta: false
   comments: false
-  showtoc: true
 
   mainSections:
     - posts
 
   googleSiteVerification: ""
+  footer:
+    text: "[分类](/categories/) · [友链](/link/) · [说说](/artitalk/) · [搜索](/search/) · [RSS](/rss.xml)"
   images:
     - "og.jpeg"
 
   assets:
-    theme_color: "#faf9f6"
     favicon: "img/ethanyi-icon.png"
     favicon16x16: "img/ethanyi-icon.png"
     favicon32x32: "img/ethanyi-icon.png"
@@ -157,7 +159,3 @@ menu:
       name: "关于"
       url: "/about/"
       weight: 40
-    - identifier: search
-      name: "搜索"
-      url: "/search/"
-      weight: 50

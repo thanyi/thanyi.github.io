@@ -1,7 +1,24 @@
+<div class="footer-stats" data-pagefind-ignore>
+  <span
+    id="busuanzi_container_site_pv"
+    data-visit-count
+    aria-busy="true"
+    title="全站页面被打开的总次数"
+  >
+    总访问 <span id="busuanzi_value_site_pv">—</span> 次
+  </span>
+  <span
+    id="busuanzi_container_site_uv"
+    data-visit-count
+    aria-busy="true"
+    title="不蒜子统计的全站访客数"
+  >
+    访客 <span id="busuanzi_value_site_uv">—</span> 人
+  </span>
+</div>
+
 {{- $visit := resources.Get "js/visit-counts.js" | minify | fingerprint -}}
 <script defer src="{{ $visit.RelPermalink }}" integrity="{{ $visit.Data.Integrity }}"></script>
-{{- $ui := resources.Get "js/site-ui.js" | minify | fingerprint -}}
-<script defer src="{{ $ui.RelPermalink }}" integrity="{{ $ui.Data.Integrity }}"></script>
 {{- if .IsPage }}
 {{- $toc := resources.Get "js/toc.js" | minify | fingerprint -}}
 <script defer src="{{ $toc.RelPermalink }}" integrity="{{ $toc.Data.Integrity }}"></script>

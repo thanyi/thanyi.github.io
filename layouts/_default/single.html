@@ -1,78 +1,80 @@
 {{- define "main" }}
 
-{{- $hasToc := and (.Param "ShowToc") (strings.Contains .TableOfContents "<ul>") -}}
 {{- $toc := .TableOfContents -}}
-{{- $tocInline := replace $toc "id=\"TableOfContents\"" "id=\"TableOfContentsInline\"" -}}
+{{- $hasToc := and (.Param "ShowToc") (strings.Contains $toc "<ul>") -}}
+{{- $sidebarToc := replace $toc "id=\"TableOfContents\"" "id=\"TableOfContentsSidebar\"" -}}
 
 <article class="post-single">
   <header class="post-header">
-    {{- if (.Param "ShowBreadCrumbs") }}
-    <nav class="breadcrumbs" aria-label="面包屑">
-      <a href="{{ "/" | relURL }}">首页</a>
-      {{- if eq .Section "posts" }}
-      <span aria-hidden="true">›</span><a href="{{ "/posts/" | relURL }}">文章</a>
-      {{- end }}
-      <span aria-hidden="true">›</span><span>{{ .Title }}</span>
-    </nav>
-    {{- end }}
-    <h1 class="post-title entry-hint-parent" data-pagefind-meta="title">
+    {{ partial "breadcrumbs.html" . }}
+    <h1 class="post-title entry-hint-parent">
       {{ .Title }}
       {{- if .Draft }}
-      <span class="entry-hint" title="草稿">草稿</span>
+      <span class="entry-hint" title="Draft">
+        <svg xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960" fill="currentColor">
+          <path
+            d="M160-410v-60h300v60H160Zm0-165v-60h470v60H160Zm0-165v-60h470v60H160Zm360 580v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q9 9 13 20t4 22q0 11-4.5 22.5T862.09-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z" />
+        </svg>
+      </span>
       {{- end }}
     </h1>
-    {{- with .Description }}
-    <div class="post-description">{{ . }}</div>
+    {{- if .Description }}
+    <div class="post-description">
+      {{ .Description }}
+    </div>
     {{- end }}
     {{- if not (.Param "hideMeta") }}
     <div class="post-meta">
       {{- partial "post_meta.html" . -}}
-      <span class="meta-sep" aria-hidden="true">·</span>
-      <span
+      {{- partial "translation_list.html" . -}}
+      {{- partial "edit_post.html" . -}}
+      {{- partial "post_canonical.html" . -}}
+      {{- if .IsPage -}}
+      &nbsp;·&nbsp;<span
         id="busuanzi_container_page_pv"
         data-visit-count
         data-pagefind-ignore
         aria-busy="true"
         title="文章被打开的次数，重复访问会累计"
-      >
-        阅读 <span id="busuanzi_value_page_pv" class="tabular-nums">—</span> 次
-      </span>
+      >阅读 <span id="busuanzi_value_page_pv">—</span> 次</span>
+      {{- end }}
     </div>
     {{- end }}
   </header>
 
+  {{- $isHidden := (.Param "cover.hiddenInSingle") | default (.Param "cover.hidden") | default false }}
+  {{- partial "cover.html" (dict "cxt" . "IsSingle" true "isHidden" $isHidden) }}
+
   <div class="post-layout{{ if $hasToc }} has-toc{{ end }}">
     <div class="post-main">
-      {{- if $hasToc }}
-      <details class="toc-inline" data-pagefind-ignore>
-        <summary>文章目录</summary>
-        <div class="inner">{{ $tocInline | safeHTML }}</div>
-      </details>
+      {{- if (.Param "ShowToc") }}
+      {{- partial "toc.html" . }}
       {{- end }}
+
       {{- if .Content }}
-      <article id="article" class="post-content md-content" data-pagefind-body>
-        {{ .Content }}
+      <article id="article" class="post-content">
+        {{- if not (.Param "disableAnchoredHeadings") }}
+        {{- partial "anchored_headings.html" .Content -}}
+        {{- else }}{{ .Content }}{{ end }}
       </article>
       {{- end }}
     </div>
 
     {{- if $hasToc }}
-    <aside class="toc-sidebar" aria-label="文章目录" data-pagefind-ignore>
+    <aside class="toc-sidebar" aria-label="文章目录">
       <div class="toc-sidebar-title">文章目录</div>
-      <div class="inner">{{ $toc | safeHTML }}</div>
+      <div class="inner">{{ $sidebarToc | safeHTML }}</div>
     </aside>
     {{- end }}
   </div>
 
-  {{- if eq .Section "posts" }}
   <footer class="post-footer">
-    {{- if (.Param "ShowTags") }}
+    {{- $tags := .Language.Params.Taxonomies.tag | default "tags" }}
     <ul class="post-tags">
-      {{- range ($.GetTerms "tags") }}
+      {{- range ($.GetTerms $tags) }}
       <li><a href="{{ .Permalink }}">{{ .LinkTitle }}</a></li>
       {{- end }}
     </ul>
-    {{- end }}
     {{- if (.Param "ShowPostNavLinks") }}
     {{- partial "post_nav_links.html" . }}
     {{- end }}
@@ -80,6 +82,9 @@
     {{- partial "share_icons.html" . -}}
     {{- end }}
   </footer>
+
+  {{- if (.Param "comments") }}
+  {{- partial "comments.html" . }}
   {{- end }}
 </article>
 

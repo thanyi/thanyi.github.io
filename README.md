@@ -116,7 +116,7 @@ draft: true
 ## 站点设置与维护命令
 
 - 站点信息、导航、每页文章数、PaperMod 参数：`hugo.yaml`
-- 配色、中文排版、sticky 目录样式：`assets/css/extended/custom.css`
+- 右侧 sticky 目录样式：`assets/css/extended/toc.css`（其余使用 PaperMod 默认样式）
 - 页面模板与统计/搜索脚本：`layouts/`、`assets/js/`
 - 关于与友链：`content/about.md`、`content/link.md`
 

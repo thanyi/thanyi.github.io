@@ -23,6 +23,7 @@ class Page(HTMLParser):
         super().__init__(convert_charrefs=True)
         self.in_article = False
         self.in_code = False
+        self.in_anchor = False
         self.ids = set()
         self.codes = []
         self.references = []
@@ -32,6 +33,8 @@ class Page(HTMLParser):
 
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
+        if tag == "a" and "anchor" in (attrs.get("class") or "").split():
+            self.in_anchor = True
         if attrs.get("id") == "article":
             self.in_article = True
         if "id" in attrs:
@@ -45,6 +48,8 @@ class Page(HTMLParser):
                 self.references.append((tag, value))
 
     def handle_endtag(self, tag):
+        if tag == "a" and self.in_anchor:
+            self.in_anchor = False
         if tag == "article":
             self.in_article = False
         if tag == "code" and self.in_code:
@@ -56,7 +61,7 @@ class Page(HTMLParser):
     def handle_data(self, text):
         if self.in_code:
             self.code += text
-        if self.in_article:
+        if self.in_article and not self.in_anchor:
             self.body_text.append(text)
 
 

@@ -1,12 +1,25 @@
+{{- $scratch := newScratch -}}
 {{- $format := site.Params.DateFormat | default "2006 年 1 月 2 日" -}}
-{{- $zone := "Asia/Shanghai" -}}
-{{- if and (not .Lastmod.IsZero) (.Lastmod.After .Date) -}}
-{{- $date := time.In $zone .Lastmod -}}
-<span class="post-date-label">更新于：</span><time class="post-date" datetime="{{ time.Format "2006-01-02T15:04:05Z07:00" $date }}">{{ time.Format $format $date }}</time>
-{{- else -}}
-{{- $date := time.In $zone .Date -}}
-<time class="post-date" datetime="{{ time.Format "2006-01-02T15:04:05Z07:00" $date }}">{{ time.Format $format $date }}</time>
+
+{{- if not .Date.IsZero -}}
+{{- $date := time.In "Asia/Shanghai" .Date -}}
+{{- $scratch.Add "meta" (slice (printf "<span title='%s'>%s</span>" (time.Format "2006-01-02T15:04:05Z07:00" $date) (time.Format $format $date))) }}
 {{- end -}}
+
 {{- if (.Param "ShowReadingTime") -}}
-<span class="meta-sep" aria-hidden="true">·</span><span class="post-reading-time">{{ .ReadingTime }} 分钟</span>
+{{- $scratch.Add "meta" (slice (i18n "read_time" .ReadingTime | default (printf "%d min" .ReadingTime))) }}
+{{- end -}}
+
+{{- if (.Param "ShowWordCount") -}}
+{{- $scratch.Add "meta" (slice (i18n "words" .WordCount | default (printf "%d words" .WordCount))) }}
+{{- end -}}
+
+{{- if not (.Param "hideAuthor") -}}
+{{- with (partial "author.html" .) }}
+{{- $scratch.Add "meta" (slice .) }}
+{{- end -}}
+{{- end -}}
+
+{{- with ($scratch.Get "meta") }}
+{{- delimit . "&nbsp;·&nbsp;" | safeHTML -}}
 {{- end -}}
