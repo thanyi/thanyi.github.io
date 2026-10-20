@@ -3,7 +3,7 @@ title: nisp-错题回顾（二）
 url: /2022/03/25/022nisp-错题回顾（二）/
 date: 2022-03-25T02:05:15.000Z
 lastmod: 2022-05-02T15:59:47.388Z
-description: PGP是一个免费的个人编写的密码软件 全称是Pretty Good Privacy，它采用了一种RSA和传统加密结合的机制 阶段有六点：
+description: 回顾 NISP 错题中的重点内容，包括 PGP、应急响应、口令获取、无线路由器配置和信息安全事件分级等知识点，方便考前复习。
 tags:
   - nisp
 categories:

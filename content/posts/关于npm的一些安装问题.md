@@ -3,7 +3,7 @@ title: 关于npm的一些安装问题
 url: /2021/03/22/005关于npm/
 date: 2021-03-21T16:00:00.000Z
 lastmod: 2021-03-22T17:23:37.410Z
-description: 换了一台电脑后，关于nodejs，每次弄npm安装插件都有一大堆报错和warning，这里稍微整理一下，方便以后使用npm 在NodeJs开发中，往往需要安装各种依赖包，而有时候这些依赖包版本更新了或者改成了另外一个包名，导致npm install会报“requires a peer of XXX”
+description: 整理 npm 安装依赖时的常见报错，包括 peer dependency、缺少 package.json、repository 字段等问题及解决方法。
 tags:
   - 技术
   - npm

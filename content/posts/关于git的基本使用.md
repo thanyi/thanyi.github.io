@@ -3,7 +3,7 @@ title: 关于git的基本使用
 url: /2021/02/25/002代码提交/
 date: 2021-02-24T16:00:00.000Z
 lastmod: 2021-12-07T14:39:21.655Z
-description: 在本地写好代码了然后想要上传到GitHub的时候，使用git命令一直要忘记命令过程，现在把上传GitHub的命令过程整理一下 git安装： https://www.cnblogs.com/xueweisuoyong/p/11914045.html 开始绑定用户名和邮箱（注：用户名是你GitHub的用
+description: "在本地写好代码后想上传到 GitHub 时，总是记不清 git 命令。这里把安装、绑定账号、提交和推送的完整流程整理一遍，方便以后查阅。"
 tags:
   - git
   - 技术

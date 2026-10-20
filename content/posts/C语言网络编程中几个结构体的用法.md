@@ -3,7 +3,7 @@ title: C语言网络编程中几个结构体的用法
 url: /2021/10/09/017c语言网络编程中几个结构体的用法/
 date: 2021-10-09T15:25:17.000Z
 lastmod: 2021-10-08T16:29:54.314Z
-description: "C语言网络编程中有很多结构体，其中很多的结构体对我来说很混乱，难以记住，想要先整理一下 sockaddr在头文件 #include <sys/socket.h> 中定义 sockaddr_in在头文件 #include<netinet/in.h>或#include <arpa/inet.h> 中定义"
+description: "C 语言网络编程里的结构体很多，容易混淆。这里整理了 sockaddr、sockaddr_in 等常用结构体的定义、字段和使用场景，方便以后查阅。"
 tags:
   - 学习
 categories:

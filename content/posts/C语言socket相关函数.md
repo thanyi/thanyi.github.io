@@ -3,7 +3,7 @@ title: C语言socket相关函数
 url: /2021/10/10/018C语言socket相关函数/
 date: 2021-10-10T07:09:32.000Z
 lastmod: 2022-03-21T16:15:25.656Z
-description: 网络编程中的一些函数的具体用法 创建套接字，成功时返回文件描述符，失败时返回-1 调用bind函数给套接字分配IP地址和端口，成功时返回0，失败时返回-1
+description: 整理 C 语言网络编程中常用的 socket 函数，包括创建套接字、bind、listen、accept 和 connect 的用法、返回值以及常见错误处理。
 tags:
   - 学习
 categories:

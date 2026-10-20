@@ -3,7 +3,7 @@ title: 关于win系统中powershell的美化
 url: /2021/04/30/007关于powershell/
 date: 2021-04-29T16:00:00.000Z
 lastmod: 2021-04-30T15:48:07.677Z
-description: 在花猪的带领下，学会了关于我电脑的powershell的美化，太香了 https://akilar.top/posts/8a76eb87/ 我觉得上文的那个文章里面写的很好了我就不写了
+description: 在朋友的带领下尝试美化 PowerShell，效果很不错。这里记录使用的主题、字体和配置步骤，并附上参考文章，方便重装系统后快速恢复。
 tags:
   - 技术
   - 安装

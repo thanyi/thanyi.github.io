@@ -3,7 +3,7 @@ title: 关于安装burp suite抓包工具
 url: /2021/03/18/004抓包工具安装/
 date: 2021-03-17T16:00:00.000Z
 lastmod: 2021-03-18T16:37:37.873Z
-description: 由于一些原因换了台电脑，之前的抓包工具也没有了，所以想要重新下载burp suite来进行抓包测试 以下的教程很大部分参考了 https://blog.csdn.net/LUOBIKUN/article/details/87457545 的内容，只是针对我自己的一些问题进行了阐述，并且总结了一些东西
+description: "换电脑后需要重新安装 Burp Suite 做抓包测试。这篇文章整理了下载、安装和基础配置过程，并附上参考资料，方便以后重新搭建环境。"
 tags:
   - 技术
   - 安装

@@ -3,7 +3,7 @@ title: ctf基础题02
 url: /2021/08/07/014ctf基础题02/
 date: 2021-08-07T13:51:58.000Z
 lastmod: 2021-08-14T09:51:26.601Z
-description: 知识点总结： 一、关于phps 这是个没有想到的网站名，需要记一下
+description: 知识点总结：记录 CTF 基础题中关于 PHPS 网站名的识别，以及常见的编码、文件包含和命令执行等题型的解题思路和踩坑经验。
 tags:
   - ctf
 categories:

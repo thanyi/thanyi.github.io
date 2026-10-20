@@ -3,7 +3,7 @@ title: 关于python中beautifulsoup库的用法(超简单)
 url: /2021/09/09/016关于python中beautiful库的用法/
 date: 2021-09-09T07:19:01.000Z
 lastmod: 2021-09-09T16:35:27.098Z
-description: 之前有节实验课研究了爬虫，我深刻地感觉到了xpath就不适合玩爬虫（个人见解），于是我开始试着重新复习beautifulsoup库了 安装直接pip安装就好了 引用
+description: 复习 BeautifulSoup 爬虫库的使用方法，从 pip 安装、解析 HTML 到提取元素，整理了一套简单易懂的入门示例，适合快速上手。
 tags:
   - python
 categories:
