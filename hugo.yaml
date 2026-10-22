@@ -106,6 +106,17 @@ params:
   hideSummary: false
   hidemeta: false
   comments: true
+  # Comment backend: utterances | waline | twikoo
+  commentProvider: "utterances"
+  utterances:
+    repo: "thanyi/thanyi.github.io"
+    issueTerm: "pathname"
+  waline:
+    serverURL: ""
+    lang: "zh-CN"
+  twikoo:
+    envId: ""
+    lang: "zh-CN"
 
   mainSections:
     - posts

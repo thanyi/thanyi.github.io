@@ -1,38 +1,89 @@
-{{- /* Utterances: comments are stored as GitHub Issues in this repository. */ -}}
+{{- /* Comment backend switch: utterances (GitHub Issues), Waline or Twikoo. */ -}}
+{{- $provider := lower (site.Params.commentProvider | default "utterances") -}}
+
 <div class="comments" id="comments">
   <h2 class="comments-title">评论</h2>
+
+  {{- if eq $provider "utterances" }}
+  {{- $repo := site.Params.utterances.repo | default "thanyi/thanyi.github.io" }}
+  {{- $term := site.Params.utterances.issueTerm | default "pathname" }}
   <script
     src="https://utteranc.es/client.js"
-    repo="thanyi/thanyi.github.io"
-    issue-term="pathname"
+    repo="{{ $repo }}"
+    issue-term="{{ $term }}"
     theme="github-light"
     crossorigin="anonymous"
     async
   ></script>
   <noscript>开启 JavaScript 后可以查看和发表评论。</noscript>
+
+  <script>
+    (function () {
+      function currentTheme() {
+        return document.body.classList.contains("dark") ? "github-dark" : "github-light";
+      }
+
+      var frame = null;
+
+      // Utterances reports its iframe via postMessage; keep it in sync with the
+      // site's own dark-mode toggle, which ignores the OS setting once clicked.
+      window.addEventListener("message", function (event) {
+        if (!event.data || event.data.type !== "utterances") return;
+        frame = event.source;
+        frame.postMessage({ type: "set-theme", theme: currentTheme() }, "*");
+      });
+
+      document.addEventListener("click", function (event) {
+        if (!event.target.closest || !event.target.closest("#theme-toggle")) return;
+        window.setTimeout(function () {
+          if (frame) frame.postMessage({ type: "set-theme", theme: currentTheme() }, "*");
+        }, 0);
+      });
+    })();
+  </script>
+
+  {{- else if eq $provider "waline" }}
+  {{- with site.Params.waline.serverURL }}
+  <div id="waline"></div>
+  <link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css">
+  <script type="module">
+    import { init } from "https://unpkg.com/@waline/client@v3/dist/waline.js";
+
+    init({
+      el: "#waline",
+      serverURL: {{ . | jsonify }},
+      lang: {{ (site.Params.waline.lang | default "zh-CN") | jsonify }},
+      dark: "body.dark",
+    });
+  </script>
+  {{- else }}
+  <p class="comments-hint">
+    尚未配置 Waline 服务端：请在 <code>hugo.yaml</code> 的
+    <code>params.waline.serverURL</code> 填写部署地址。
+  </p>
+  {{- end }}
+
+  {{- else if eq $provider "twikoo" }}
+  {{- with site.Params.twikoo.envId }}
+  <div id="twikoo"></div>
+  <script src="https://cdn.jsdelivr.net/npm/twikoo@2.0.17/dist/twikoo.min.js"></script>
+  <script>
+    twikoo.init({
+      el: "#twikoo",
+      envId: {{ . | jsonify }},
+      lang: {{ (site.Params.twikoo.lang | default "zh-CN") | jsonify }},
+    });
+  </script>
+  {{- else }}
+  <p class="comments-hint">
+    尚未配置 Twikoo 环境：请在 <code>hugo.yaml</code> 的
+    <code>params.twikoo.envId</code> 填写部署地址或环境 ID。
+  </p>
+  {{- end }}
+
+  {{- else }}
+  <p class="comments-hint">
+    未知的评论后端 <code>{{ $provider }}</code>，可选值：utterances、waline、twikoo。
+  </p>
+  {{- end }}
 </div>
-
-<script>
-  (function () {
-    function currentTheme() {
-      return document.body.classList.contains("dark") ? "github-dark" : "github-light";
-    }
-
-    var frame = null;
-
-    // Utterances reports its iframe via postMessage; keep it in sync with the
-    // site's own dark-mode toggle, which ignores the OS setting once clicked.
-    window.addEventListener("message", function (event) {
-      if (!event.data || event.data.type !== "utterances") return;
-      frame = event.source;
-      frame.postMessage({ type: "set-theme", theme: currentTheme() }, "*");
-    });
-
-    document.addEventListener("click", function (event) {
-      if (!event.target.closest || !event.target.closest("#theme-toggle")) return;
-      window.setTimeout(function () {
-        if (frame) frame.postMessage({ type: "set-theme", theme: currentTheme() }, "*");
-      }, 0);
-    });
-  })();
-</script>

@@ -96,3 +96,8 @@
 .comments .utterances {
   max-width: 100%;
 }
+
+.comments-hint {
+  color: var(--secondary);
+  line-height: 1.7;
+}

@@ -150,6 +150,34 @@ npm run verify:migration   # 检查历史正文、网址、图片、锚点及订
 
 `hugo server` 不提供 Pagefind 索引；要预览完整搜索，请先构建，再用 `npm run preview` 打开 `dist/`。
 
+## 评论
+
+文章页底部支持三种评论后端，通过 `hugo.yaml` 切换，改一行即可：
+
+```yaml
+params:
+  commentProvider: "utterances"   # utterances | waline | twikoo
+```
+
+- **utterances（默认）**：评论以 GitHub Issue 的形式存放在本仓库，不需要服务器。首次使用需要在仓库上安装 [utterances App](https://github.com/apps/utterances/installations/new)，并选择 `thanyi/thanyi.github.io`。
+- **Waline**：需要先部署 Waline 服务端，然后填写：
+
+  ```yaml
+  waline:
+    serverURL: "https://你的-waline-地址"
+    lang: "zh-CN"
+  ```
+
+- **Twikoo**：需要先部署 Twikoo 环境，然后填写：
+
+  ```yaml
+  twikoo:
+    envId: "https://你的-twikoo-地址"
+    lang: "zh-CN"
+  ```
+
+未填写服务端地址时，页面会显示配置提示，不会报错。评论组件在 `layouts/partials/comments.html`；关于、友链等页面通过 frontmatter 的 `comments: false` 关闭评论区。
+
 ## 说说
 
 说说页面继续使用原来的 Artitalk 公共应用配置（`data/artitalk.json`）；记录保存在原 LeanCloud 服务中，不在这个 Git 仓库里。2026-10-17 验证时，该应用返回 “The app is archived”。需要原账号在 LeanCloud 控制台恢复应用后，才能重新读取说说；页面已保留兼容入口，并在服务不可用时显示提示。Artitalk 使用固定版本的本地脚本（`public/vendor/artitalk-3.3.4.js`）。
