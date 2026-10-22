@@ -105,7 +105,7 @@ params:
 
   hideSummary: false
   hidemeta: false
-  comments: false
+  comments: true
 
   mainSections:
     - posts

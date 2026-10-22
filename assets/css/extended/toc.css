@@ -82,3 +82,17 @@
   font-size: 0.875rem;
   color: var(--secondary);
 }
+
+/* Article comments (utterances). */
+.comments {
+  margin-block-start: 3rem;
+}
+
+.comments-title {
+  font-size: 1.25rem;
+  margin-block-end: 1rem;
+}
+
+.comments .utterances {
+  max-width: 100%;
+}

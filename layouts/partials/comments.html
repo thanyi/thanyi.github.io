@@ -1,0 +1,38 @@
+{{- /* Utterances: comments are stored as GitHub Issues in this repository. */ -}}
+<div class="comments" id="comments">
+  <h2 class="comments-title">评论</h2>
+  <script
+    src="https://utteranc.es/client.js"
+    repo="thanyi/thanyi.github.io"
+    issue-term="pathname"
+    theme="github-light"
+    crossorigin="anonymous"
+    async
+  ></script>
+  <noscript>开启 JavaScript 后可以查看和发表评论。</noscript>
+</div>
+
+<script>
+  (function () {
+    function currentTheme() {
+      return document.body.classList.contains("dark") ? "github-dark" : "github-light";
+    }
+
+    var frame = null;
+
+    // Utterances reports its iframe via postMessage; keep it in sync with the
+    // site's own dark-mode toggle, which ignores the OS setting once clicked.
+    window.addEventListener("message", function (event) {
+      if (!event.data || event.data.type !== "utterances") return;
+      frame = event.source;
+      frame.postMessage({ type: "set-theme", theme: currentTheme() }, "*");
+    });
+
+    document.addEventListener("click", function (event) {
+      if (!event.target.closest || !event.target.closest("#theme-toggle")) return;
+      window.setTimeout(function () {
+        if (frame) frame.postMessage({ type: "set-theme", theme: currentTheme() }, "*");
+      }, 0);
+    });
+  })();
+</script>
